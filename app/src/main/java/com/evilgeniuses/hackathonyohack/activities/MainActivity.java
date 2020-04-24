@@ -1,8 +1,10 @@
-package com.evilgeniuses.hackathonyohack;
+package com.evilgeniuses.hackathonyohack.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.evilgeniuses.hackathonyohack.R;
 
 public class MainActivity extends AppCompatActivity {
 
