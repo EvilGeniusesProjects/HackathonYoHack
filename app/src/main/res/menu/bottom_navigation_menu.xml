@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tab_1"
+        android:icon="@drawable/arrow_left"
+        android:title="О хакатоне" />
+    <item
+        android:id="@+id/tab_2"
+        android:icon="@drawable/arrow_left"
+        android:title="FAQ" />
+    <item
+        android:id="@+id/tab_3"
+        android:icon="@drawable/arrow_left"
+        android:title="Менторы" />
+    <item
+        android:id="@+id/tab_4"
+        android:icon="@drawable/system_image_team"
+        android:title="Команда" />
+    <item
+        android:id="@+id/tab_5"
+        android:icon="@drawable/system_image_profile"
+        android:title="Профиль" />
+</menu>
