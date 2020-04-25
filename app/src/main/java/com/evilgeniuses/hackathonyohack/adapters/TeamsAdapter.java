@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.evilgeniuses.hackathonyohack.R;
 import com.evilgeniuses.hackathonyohack.activities.ChatActivity;
+import com.evilgeniuses.hackathonyohack.models.Team;
 import com.evilgeniuses.hackathonyohack.models.User;
 
 import java.util.List;
@@ -21,13 +22,11 @@ import java.util.List;
 public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder>{
 
     private Context mContext;
-    private List<User> mUsers;
+    private List<Team> mTeams;
     private boolean ischat;
-    String lastMessage;
-    String lastMessageTime;
 
-    public TeamsAdapter(Context mContext, List<User> mUsers, boolean ischat){
-        this.mUsers = mUsers;
+    public TeamsAdapter(Context mContext, List<Team> teams, boolean ischat){
+        this.mTeams = teams;
         this.mContext = mContext;
         this.ischat = ischat;
     }
@@ -43,48 +42,34 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        final User user = mUsers.get(position);
+        final Team team = mTeams.get(position);
 
-        if (user.getUserProfileImageURL().equals("STANDARD")){
+        if (team.getTeamProfileImageURL().equals("STANDARD")){
             holder.imageViewProfileImage.setImageResource(R.mipmap.ic_launcher);
         } else {
-            Glide.with(mContext).load(user.userProfileImageURL).override(256, 256).into(holder.imageViewProfileImage);
+            Glide.with(mContext).load(team.teamProfileImageURL).override(256, 256).into(holder.imageViewProfileImage);
         }
 
-
-//        if (ischat){
-//            lastMessage(user.getUserID(), holder.textViewLastMessage, holder.textViewTime);
-//            holder.textViewLastMessage.setVisibility(View.VISIBLE);
-//        } else {
             holder.textViewLastMessage.setVisibility(View.GONE);
-//        }
 
-        if(ischat){
-            if(user.getUserStatus().equals("online")){
-                holder.imageViewStatus.setVisibility(View.VISIBLE);
-            }else{
-                holder.imageViewStatus.setVisibility(View.GONE);
-            }
-        }else{
             holder.imageViewStatus.setVisibility(View.GONE);
-        }
 
 
-        holder.textViewName.setText(user.getUserUsername());
+        holder.textViewName.setText(team.getTeamName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, ChatActivity.class);
-                intent.putExtra("userID", user.getUserID());
-                mContext.startActivity(intent);
+//                Intent intent = new Intent(mContext, ChatActivity.class); /активити для входа
+//                intent.putExtra("userID", team.getUserID());
+//                mContext.startActivity(intent);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mUsers.size();
+        return mTeams.size();
     }
 
     public  class ViewHolder extends RecyclerView.ViewHolder{
@@ -104,47 +89,4 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder>{
             textViewTime = itemView.findViewById(R.id.textViewTime);
         }
     }
-
-//    private void lastMessage(final String userid, final TextView last_msg, final TextView textViewTime){
-//        lastMessage = "default";
-//        lastMessageTime = "default";
-//        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats");
-//
-//        reference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-//                    Message message = snapshot.getValue(Message.class);
-//                    if (firebaseUser != null && message != null) {
-//                        if (message.getReceiver().equals(firebaseUser.getUid()) && message.getSender().equals(userid) ||
-//                                message.getReceiver().equals(userid) && message.getSender().equals(firebaseUser.getUid())) {
-//                            lastMessage = message.getMessage();
-//                            lastMessageTime = message.getTime();
-//                        }
-//                    }
-//                }
-//
-//                switch (lastMessage){
-//                    case  "default":
-//                        last_msg.setText("No Message");
-//                        textViewTime.setText("");
-//                        break;
-//
-//                    default:
-//                        last_msg.setText(lastMessage);
-//                        textViewTime.setText(lastMessageTime);
-//                        break;
-//                }
-//
-//                lastMessage = "default";
-//                lastMessageTime = "default";
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
 }

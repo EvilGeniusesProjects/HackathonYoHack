@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,13 +26,14 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.evilgeniuses.hackathonyohack.R;
 import com.evilgeniuses.hackathonyohack.activities.NavigationParticipantActivity;
+import com.evilgeniuses.hackathonyohack.fragments.participant.TeamFragment;
 import com.evilgeniuses.hackathonyohack.interfaces.SwitchFragment;
+import com.evilgeniuses.hackathonyohack.models.Team;
 import com.evilgeniuses.hackathonyohack.models.User;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -47,7 +47,7 @@ import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
 
-public class RegistrationFragment extends Fragment implements View.OnClickListener {
+public class CreateTeamFragment extends Fragment implements View.OnClickListener {
 
     private SwitchFragment switchFragment;
 
@@ -56,8 +56,6 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     TextView textViewSetProfileImage;
     EditText editTextUsername;
     EditText editTextName;
-    EditText editTextLastname;
-    EditText editTextEmail;
     EditText editTextPassword;
     Button buttonSignUp;
 
@@ -78,14 +76,12 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_registration, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_create_team, container, false);
 
         imageViewProfileImage = rootView.findViewById(R.id.imageViewProfileImage);
         textViewSetProfileImage = rootView.findViewById(R.id.textViewSetProfileImage);
         editTextUsername = rootView.findViewById(R.id.editTextUsername);
         editTextName = rootView.findViewById(R.id.editTextName);
-        editTextLastname = rootView.findViewById(R.id.editTextLastname);
-        editTextEmail = rootView.findViewById(R.id.editTextEmail);
         editTextPassword = rootView.findViewById(R.id.editTextPassword);
         buttonSignUp = rootView.findViewById(R.id.buttonSignUp);
 
@@ -116,65 +112,38 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     public void checkField() {
         if ((editTextUsername.getText().length() != 0)) {
             if ((editTextName.getText().length() != 0)) {
-                if ((editTextLastname.getText().length() != 0)) {
-                    if ((editTextEmail.getText().length() != 0)) {
-                        if ((editTextPassword.getText().length() != 0)) {
-                            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-                            onCreateAcc(String.valueOf(editTextEmail.getText()), String.valueOf(editTextPassword.getText()));
-                        } else {
-                            Toast.makeText(getContext(), "Ошибка: заполните поле \"Пароль\"", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(getContext(), "Ошибка: заполните поле \"Email\"", Toast.LENGTH_SHORT).show();
-                    }
+                if ((editTextPassword.getText().length() != 0)) {
+                    getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                    onCreateTeam();
                 } else {
-                    Toast.makeText(getContext(), "Ошибка: заполните поле \"Lastname\"", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Ошибка: заполните поле \"Пароль\"", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(getContext(), "Ошибка: заполните поле \"Name\"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Ошибка: заполните поле \"Идеи\"", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(getContext(), "Ошибка: заполните поле \"Username\"", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Ошибка: заполните поле \"Название команды\"", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void onCreateAcc(String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    com.google.firebase.auth.FirebaseUser user = mAuth.getCurrentUser();
-                    authenticationID = user.getUid();
-
-                    SharedPreferences sharedPreferencesID = getActivity().getSharedPreferences("UserID", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferencesID.edit();
-                    editor.putString("UserID", authenticationID).apply();
-
+    public void onCreateTeam() {
                     if (imagePick) {
                         uploadImage();
                     } else {
                         Login();
                     }
-
-                } else {
-                    Toast.makeText(getContext(), "Ошибка: некорректный Email", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
-    private void writeNewUser() {
-        User user = new User();
-        user.userID = authenticationID;
-        user.userProfileImageURL = imageProfileRef;
-        user.userUsername = String.valueOf(editTextUsername.getText());
-        user.userUsernameSearch = String.valueOf(editTextUsername.getText()).toLowerCase();
-        user.userEmail = String.valueOf(editTextEmail.getText());
-        user.userName = String.valueOf(editTextName.getText());
-        user.userLastname = String.valueOf(editTextLastname.getText());
-        //user.userPassword = String.valueOf(editTextPassword.getText());
-        user.userStatus = "offline";
-        myRef.child("Users/" + authenticationID).setValue(user);
+    private void writeNewTeam() {
+        Team team = new Team();
+
+        team.teamProfileImageURL = imageProfileRef;
+        team.teamName = String.valueOf(editTextUsername.getText());
+        team.teamIdea = String.valueOf(editTextName.getText());
+        team.teamPassword = String.valueOf(editTextPassword.getText());
+
+
+        myRef.child("Teams/" + team.teamName).setValue(team);
     }
 
     private void SelectImage() {
@@ -237,10 +206,9 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     }
 
     public void Login() {
-        writeNewUser();
-        Intent intent = new Intent(getActivity(), NavigationParticipantActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+        writeNewTeam();
+        switchFragment.setFragment(TeamFragment.newInstance(), "");
+        Toast.makeText(getContext(), "Команда создана", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -268,8 +236,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         }
     }
 
-    public static RegistrationFragment newInstance() {
-        return new RegistrationFragment();
+    public static CreateTeamFragment newInstance() {
+        return new CreateTeamFragment();
     }
 }
 
