@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginBottom="24dp"
-                android:text="Welcome"
+                android:text="Добро пожаловать"
                 android:textColor="@color/colorWhite"
                 android:textSize="36sp"
                 android:textStyle="bold"
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
-                android:text="with simple messenger"
+                android:text="в простом мессенджере"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/textViewTitle"
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/system_style_edit"
                     android:ems="10"
-                    android:hint="Username"
+                    android:hint="Имя пользователя"
                     android:inputType="textPersonName"
                     android:padding="12dp"
                     android:textColor="@color/colorWhite" />
@@ -113,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/system_style_edit"
                     android:ems="10"
-                    android:hint="Name"
+                    android:hint="Имя"
                     android:inputType="textPersonName"
                     android:padding="12dp"
                     android:textColor="@color/colorWhite" />
@@ -131,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/system_style_edit"
                     android:ems="10"
-                    android:hint="Lastname"
+                    android:hint="Фамлиия"
                     android:inputType="textPersonName"
                     android:padding="12dp"
                     android:textColor="@color/colorWhite" />
@@ -149,7 +149,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/system_style_edit"
                     android:ems="10"
-                    android:hint="Email"
+                    android:hint="Почта"
                     android:inputType="textEmailAddress"
                     android:padding="12dp"
                     android:textColor="@color/colorWhite" />
@@ -168,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/system_style_edit"
                     android:ems="10"
-                    android:hint="Password"
+                    android:hint="Пароль"
                     android:inputType="textPassword"
                     android:padding="12dp"
                     android:textColor="@color/colorWhite" />
@@ -182,7 +182,7 @@
                 android:layout_gravity="right"
                 android:layout_marginBottom="32dp"
                 android:padding="8dp"
-                android:text="Add profile image"
+                android:text="Добавить изображение профиля"
                 android:textColor="@color/colorGray"
                 android:textStyle="bold" />
 
@@ -191,7 +191,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/system_style_button"
-                android:text="Sign up"
+                android:text="Зарегистрироваться"
                 android:textColor="@color/colorWhite" />
         </LinearLayout>
 

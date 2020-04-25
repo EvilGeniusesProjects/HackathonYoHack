@@ -93,7 +93,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/system_style_edit_chat"
             android:ems="10"
-            android:hint="Type something"
+            android:hint="Напишите что-нибудь"
             android:inputType="textPersonName"
             android:paddingLeft="24dp"
             android:paddingTop="12dp"

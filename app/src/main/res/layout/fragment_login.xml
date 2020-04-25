@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginBottom="60dp"
-                android:text="Say Hello"
+                android:text="Скажи привет"
                 android:textColor="@color/colorWhite"
                 android:textSize="36sp"
                 android:textStyle="bold"
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
-                android:text="with simple messenger"
+                android:text="с простым мессенджером"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/textViewTitle1"
@@ -79,7 +79,7 @@
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/system_style_edit"
                     android:ems="10"
-                    android:hint="Email"
+                    android:hint="Почта"
                     android:inputType="textEmailAddress"
                     android:padding="12dp"
                     android:textColor="@color/colorWhite" />
@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/system_style_edit"
                     android:ems="10"
-                    android:hint="Password"
+                    android:hint="Пароль"
                     android:inputType="textPassword"
                     android:padding="12dp"
                     android:textColor="@color/colorWhite" />
@@ -111,7 +111,7 @@
                 android:layout_gravity="right"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="16dp"
-                android:text="Forgot password?"
+                android:text="Забыли пароль?"
                 android:textColor="@color/colorGray"
                 android:textSize="14sp" />
 
@@ -120,7 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/system_style_button"
-                android:text="Login"
+                android:text="Войти"
                 android:textColor="@color/colorWhite" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -157,7 +157,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:text="First time?"
+                    android:text="В первый раз?"
                     android:textColor="@color/colorGray"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -172,7 +172,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/system_style_button"
-                android:text="Sign up"
+                android:text="Зарегистрироваться"
                 android:textColor="@color/colorWhite" />
 
         </LinearLayout>

@@ -36,7 +36,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="8dp"
             android:padding="4dp"
-            android:text="Set profile image"
+            android:text="Обновить фотографию"
             android:textAlignment="center"
             android:textColor="#00bf8a" />
 
@@ -55,7 +55,7 @@
                 android:background="@drawable/system_style_edit_profile"
                 android:ems="10"
                 android:enabled="false"
-                android:hint="Username"
+                android:hint="Имя пользователя"
                 android:paddingLeft="12dp"
                 android:paddingTop="8dp"
                 android:paddingRight="12dp"
@@ -79,7 +79,7 @@
                 android:background="@drawable/system_style_edit_profile"
                 android:ems="10"
                 android:enabled="false"
-                android:hint="Email"
+                android:hint="Почта"
                 android:paddingLeft="12dp"
                 android:paddingTop="8dp"
                 android:paddingRight="12dp"
@@ -103,7 +103,7 @@
                 android:background="@drawable/system_style_edit_profile"
                 android:ems="10"
                 android:enabled="false"
-                android:hint="Lastname"
+                android:hint="Фамилия"
                 android:paddingLeft="12dp"
                 android:paddingTop="8dp"
                 android:paddingRight="12dp"
@@ -127,7 +127,7 @@
                 android:background="@drawable/system_style_edit_profile"
                 android:ems="10"
                 android:enabled="false"
-                android:hint="Name"
+                android:hint="Имя"
                 android:paddingLeft="12dp"
                 android:paddingTop="8dp"
                 android:paddingRight="12dp"
@@ -141,7 +141,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/system_style_button"
-            android:text="Logout"
+            android:text="Выход"
             android:textColor="@color/colorWhite" />
 
     </LinearLayout>
