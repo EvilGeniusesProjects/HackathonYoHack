@@ -13,6 +13,7 @@ import com.evilgeniuses.hackathonyohack.fragments.participant.ChatListFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.MentorListFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.ParticipantProfileFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.TeamFragment;
+import com.evilgeniuses.hackathonyohack.fragments.participant.FaqFragment;
 import com.evilgeniuses.hackathonyohack.interfaces.SwitchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -37,7 +38,7 @@ public class NavigationParticipantActivity extends AppCompatActivity implements 
                         setFragment(ChatListFragment.newInstance(), "");
                         break;
                     case R.id.tab_2:
-//                        setFragment(HeroAbilityFragment.newInstance(), "");
+                        setFragment(FaqFragment.newInstance(), "");
                         break;
                     case R.id.tab_3:
                         setFragment(MentorListFragment.newInstance(), "");
