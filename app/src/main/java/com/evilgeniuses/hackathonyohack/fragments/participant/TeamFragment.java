@@ -45,11 +45,39 @@ public class TeamFragment extends Fragment implements View.OnClickListener {
     private TeamsAdapter chatsAdapter;
     private List<Team> mTeams;
 
+    DatabaseReference myRef;
+    FirebaseDatabase database;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_teams, container, false);
+
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Users/" + currentFirebaseUser.getUid());
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User value = dataSnapshot.getValue(User.class);
+                if(value.userTeam != null){
+                    switchFragment.setFragment(MyTeamFragment.newInstance(), "");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                //Log.w(TAG, "Не удалось прочитать значение", error.toException());
+            }
+        });
+
+
+
+
+
+
+
 
 
         Button button = rootView.findViewById(R.id.buttonCreate);
@@ -114,7 +142,7 @@ public class TeamFragment extends Fragment implements View.OnClickListener {
                         mTeams.add(team);
 //                    }
                 }
-                chatsAdapter = new  TeamsAdapter(getContext(), mTeams, false);
+                chatsAdapter = new  TeamsAdapter(getContext(), mTeams, false, switchFragment);
                 recyclerView.setAdapter(chatsAdapter);
             }
 
@@ -146,7 +174,7 @@ public class TeamFragment extends Fragment implements View.OnClickListener {
                     }
 
 
-                    chatsAdapter = new  TeamsAdapter(getContext(), mTeams, false);
+                    chatsAdapter = new  TeamsAdapter(getContext(), mTeams, false, switchFragment);
                     recyclerView.setAdapter(chatsAdapter);
                 }
             }
