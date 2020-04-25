@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.evilgeniuses.hackathonyohack.R;
 import com.evilgeniuses.hackathonyohack.activities.ChatActivity;
+import com.evilgeniuses.hackathonyohack.activities.GeneralСhatActivity;
 import com.evilgeniuses.hackathonyohack.models.Message;
 import com.evilgeniuses.hackathonyohack.models.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -83,9 +84,16 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder>{
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, ChatActivity.class);
-                intent.putExtra("userID", user.getUserID());
-                mContext.startActivity(intent);
+                if(user.isGeneralСhatActivity()){
+                    Intent intent = new Intent(mContext, GeneralСhatActivity.class);
+                    intent.putExtra("ChatName", user.getUserID());
+                    mContext.startActivity(intent);
+                }else{
+                    Intent intent = new Intent(mContext, ChatActivity.class);
+                    intent.putExtra("userID", user.getUserID());
+                    mContext.startActivity(intent);
+                }
+
             }
         });
     }

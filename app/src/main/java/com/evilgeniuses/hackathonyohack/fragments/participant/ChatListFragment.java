@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.evilgeniuses.hackathonyohack.R;
 import com.evilgeniuses.hackathonyohack.adapters.ChatsAdapter;
 import com.evilgeniuses.hackathonyohack.interfaces.SwitchFragment;
 import com.evilgeniuses.hackathonyohack.models.Chatlist;
+import com.evilgeniuses.hackathonyohack.models.Team;
 import com.evilgeniuses.hackathonyohack.models.Token;
 import com.evilgeniuses.hackathonyohack.models.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,6 +41,7 @@ public class ChatListFragment extends Fragment implements View.OnClickListener {
 
     private ChatsAdapter userAdapter;
     private List<User> mUsers;
+    private List<Team> mTeam;
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
@@ -70,6 +73,7 @@ public class ChatListFragment extends Fragment implements View.OnClickListener {
                     usersList.add(chatlist);
                 }
                 chatList();
+                chatListTeams();
             }
 
             @Override
@@ -119,6 +123,57 @@ public class ChatListFragment extends Fragment implements View.OnClickListener {
             }
         });
     }
+
+
+
+    private void chatListTeams() {
+        mTeam = new ArrayList<>();
+        reference = FirebaseDatabase.getInstance().getReference("Teams");
+        reference.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mTeam.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Team team = snapshot.getValue(Team.class);
+                    User user = new User();
+                    for (Chatlist chatlist : usersList){
+                        if (team.getTeamName().equals(chatlist.getId())){
+                            mTeam.add(team);
+                            user.userID = team.teamName;
+                            user.userProfileImageURL = team.teamProfileImageURL;
+                            user.userStatus = "online";
+                            user.userName = team.teamName;
+                            user.userUsername = team.teamName;
+                            user.userLastname = team.teamName;
+                            user.generalСhatActivity = true;
+                            mUsers.add(user);
+                        }
+                    }
+                }
+                userAdapter = new ChatsAdapter(getContext(), mUsers, true);
+                recyclerView.setAdapter(userAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     public static ChatListFragment newInstance() {
         return new ChatListFragment();

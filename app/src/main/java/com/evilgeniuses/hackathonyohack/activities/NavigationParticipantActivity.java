@@ -42,7 +42,7 @@ public class NavigationParticipantActivity extends AppCompatActivity implements 
                         setFragment(FaqFragment.newInstance(), "");
                         break;
                     case R.id.tab_3:
-                        setFragment(MentorListFragment.newInstance(), "");
+                        setFragment(ChatListFragment.newInstance(), "");
                         break;
                     case R.id.tab_4:
                         setFragment(TeamsFragment.newInstance(), "");

@@ -185,10 +185,11 @@ public class GeneralСhatActivity extends AppCompatActivity implements View.OnCl
                 listMessage.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Message message = snapshot.getValue(Message.class);
-                    if (message.getReceiver().equals(myid) && message.getSender().equals(userid) ||
-                            message.getReceiver().equals(userid) && message.getSender().equals(myid)) {
+
+                    if (message.getReceiver().equals(userid)) {
                         listMessage.add(message);
                     }
+
                     messageAdapter = new MessageAdapter(GeneralСhatActivity.this, listMessage, imageurl);
                     recyclerView.setAdapter(messageAdapter);
                 }

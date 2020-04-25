@@ -12,10 +12,22 @@ public class User {
     public String userStatus;
     public String userTeam;
 
+    public boolean isGeneralСhatActivity() {
+        return generalСhatActivity;
+    }
+
+    public void setGeneralСhatActivity(boolean generalСhatActivity) {
+        this.generalСhatActivity = generalСhatActivity;
+    }
+
+    public boolean generalСhatActivity;
+
+
+
     public User() {
     }
 
-    public User(String userID, String userUsername, String userUsernameSearch, String userProfileImageURL, String userName, String userLastname, String userEmail, String userPassword, String userStatus, String userTeam) {
+    public User(String userID, String userUsername, String userUsernameSearch, String userProfileImageURL, String userName, String userLastname, String userEmail, String userPassword, String userStatus, String userTeam, boolean generalСhatActivity) {
         this.userID = userID;
         this.userUsername = userUsername;
         this.userUsernameSearch = userUsernameSearch;
@@ -26,6 +38,7 @@ public class User {
         this.userID = userPassword;
         this.userStatus = userStatus;
         this.userTeam = userTeam;
+        this.generalСhatActivity = generalСhatActivity;
     }
 
     public String getUserID() {
