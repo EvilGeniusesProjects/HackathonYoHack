@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,8 @@ import com.evilgeniuses.hackathonyohack.R;
 import com.evilgeniuses.hackathonyohack.models.FaqQuestion;
 
 import java.util.List;
+
+import static android.view.animation.Animation.RELATIVE_TO_SELF;
 
 public class ExpandableFaqListAdapter extends RecyclerView.Adapter<ExpandableFaqListAdapter.QuestionViewHolder> {
 
@@ -48,24 +52,45 @@ public class ExpandableFaqListAdapter extends RecyclerView.Adapter<ExpandableFaq
         public TextView textQuestion;
         public TextView textAnswer;
         public View expandableView;
+        public ImageView expandArrow;
 
-        public QuestionViewHolder(View itemView) {
+        public QuestionViewHolder(final View itemView) {
             super(itemView);
             textQuestion = itemView.findViewById(R.id.textQuestion);
             expandableView = itemView.findViewById(R.id.expandableView);
             textAnswer = itemView.findViewById(R.id.textAnswer);
+            expandArrow = itemView.findViewById(R.id.arrow);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (expandableView.getVisibility() == View.GONE) {
                         expandableView.setVisibility(View.VISIBLE);
+                        animateExpand();
                     } else {
                         expandableView.setVisibility(View.GONE);
+                        animateCollapse();
                     }
                 }
             });
         }
+
+        private void animateExpand() {
+            RotateAnimation rotate =
+                    new RotateAnimation(360, 180, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
+            rotate.setDuration(300);
+            rotate.setFillAfter(true);
+            expandArrow.setAnimation(rotate);
+        }
+
+        private void animateCollapse() {
+            RotateAnimation rotate =
+                    new RotateAnimation(180, 360, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
+            rotate.setDuration(300);
+            rotate.setFillAfter(true);
+            expandArrow.setAnimation(rotate);
+        }
+
     }
 
 }
