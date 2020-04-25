@@ -1,5 +1,6 @@
 package com.evilgeniuses.hackathonyohack.activities;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,76 +20,70 @@ import com.evilgeniuses.hackathonyohack.bot.Jarvis;
 import com.evilgeniuses.hackathonyohack.dict.JarvisRequestDictionary;
 import com.evilgeniuses.hackathonyohack.models.FaqQuestion;
 import com.evilgeniuses.hackathonyohack.models.Message;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
-public class JarvisActivity extends AppCompatActivity implements View.OnClickListener  {
+public class JarvisActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String JARVIS_IMAGE_URL = "https://media-exp1.licdn.com/dms/image/C560BAQEUmi6a4YBYLw/company-logo_200_200/0?e=2159024400&v=beta&t=lBniASMYfg6B3hy5Ffg6XmUW4OSwn2SVPS1Hy6xRNEk";
+    private static final String JARVIS_IMAGE = "jarvis.jpeg";
     private static final String JARVIS = "jarvis";
 
-    private ImageView imageViewBack;
     private RecyclerView recyclerView;
     private EditText editTextSendText;
-    private ImageView imageViewSend;
     private String userId;
+    private String jarvisImageUrl;
+    private List<FaqQuestion> faqQestions;
 
     private Jarvis jarvis;
 
     private List<Message> listMessage;
     private MessageAdapter messageAdapter;
+    private ChildEventListener childEventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jarvis);
 
-        imageViewBack = findViewById(R.id.imageViewBack);
+        ImageView imageViewBack = findViewById(R.id.imageViewBack);
         recyclerView = findViewById(R.id.recyclerView);
         editTextSendText = findViewById(R.id.editTextSendText);
-        imageViewSend = findViewById(R.id.imageViewSend);
+        ImageView imageViewSend = findViewById(R.id.imageViewSend);
 
         imageViewBack.setOnClickListener(this);
         imageViewSend.setOnClickListener(this);
 
-        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-        FaqQuestion faqQestion1 = new FaqQuestion(
-                "Сроки хакатона",
-                "дата,даты,период,время",
-                "Хакатон продлится с 20.04.2020 по 22.04.2020",
-                0);
-        FaqQuestion faqQestion2 = new FaqQuestion(
-                "Награды хакатона",
-                "награда,кэш,приз,подарок,подарки",
-                "Призовой фонд 1000000$",
-                0
-        );
-        FaqQuestion faqQestion3 = new FaqQuestion(
-                "Кому я могу обратиться за помощью?",
-                "помощь,ментор,куратор,help,помагите",
-                "Аллабердин Азат Уралович",
-                0
-        );
-
-        List<FaqQuestion> faqQestions = Arrays.asList(faqQestion1, faqQestion2, faqQestion3);
+        faqQestions = new ArrayList<>();
         jarvis = Jarvis.getBotInstance(faqQestions);
-
+        FirebaseStorage.getInstance().getReference(JARVIS_IMAGE).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                jarvisImageUrl = uri.toString();
+                FirebaseDatabase.getInstance().getReference("FAQ").addChildEventListener(childEventListener);
+                listMessage = new ArrayList<>();
+                Message jarvisMessage = new Message(JARVIS, userId, jarvis.precessMessage(JarvisRequestDictionary.HELLO1.getText()), false, DateFormat.format("hh:mm", new Date()).toString());
+                listMessage.add(jarvisMessage);
+                messageAdapter = new MessageAdapter(JarvisActivity.this, listMessage, jarvisImageUrl);
+                recyclerView.setAdapter(messageAdapter);
+            }
+        });
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
-        listMessage = new ArrayList<>();
-        DateFormat dateFormat = new DateFormat();
-        Message jarvisMessage = new Message(JARVIS, userId, jarvis.precessMessage(JarvisRequestDictionary.HELLO1.getText()), false, dateFormat.format("hh:mm", new Date()).toString());
-        listMessage.add(jarvisMessage);
-        messageAdapter = new MessageAdapter(JarvisActivity.this, listMessage, JARVIS_IMAGE_URL);
-        recyclerView.setAdapter(messageAdapter);
     }
 
     @Override
@@ -108,12 +105,49 @@ public class JarvisActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void sendMessage(String msg) {
-        DateFormat dateFormat = new DateFormat();
-        Message myMessage = new Message(userId, JARVIS, msg, false, dateFormat.format("hh:mm", new Date()).toString());
-        Message jarvisMessage = new Message(JARVIS, userId, jarvis.precessMessage(msg), false, dateFormat.format("hh:mm", new Date()).toString());
+        Message myMessage = new Message(userId, JARVIS, msg, false, DateFormat.format("hh:mm", new Date()).toString());
+        Message jarvisMessage = new Message(JARVIS, userId, jarvis.precessMessage(msg), false, DateFormat.format("hh:mm", new Date()).toString());
         listMessage.add(myMessage);
         listMessage.add(jarvisMessage);
-        messageAdapter = new MessageAdapter(JarvisActivity.this, listMessage, JARVIS_IMAGE_URL);
+        messageAdapter = new MessageAdapter(JarvisActivity.this, listMessage, jarvisImageUrl);
         recyclerView.setAdapter(messageAdapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                FaqQuestion value = dataSnapshot.getValue(FaqQuestion.class);
+                faqQestions.add(value);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        childEventListener = null;
     }
 }
