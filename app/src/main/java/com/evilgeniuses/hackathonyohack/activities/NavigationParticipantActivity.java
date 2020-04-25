@@ -44,8 +44,7 @@ public class NavigationParticipantActivity extends AppCompatActivity implements 
                         setFragment(MentorListFragment.newInstance(), "");
                         break;
                     case R.id.tab_4:
-                        //setFragment(TeamFragment.newInstance(), "");
-                        setFragment(MyTeamFragment.newInstance(), "");
+                        setFragment(TeamFragment.newInstance(), "");
                         break;
                     case R.id.tab_5:
                         setFragment(ParticipantProfileFragment.newInstance(), "");

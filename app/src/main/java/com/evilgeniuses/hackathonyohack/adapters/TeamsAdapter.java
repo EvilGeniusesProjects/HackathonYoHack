@@ -9,26 +9,36 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.evilgeniuses.hackathonyohack.R;
 import com.evilgeniuses.hackathonyohack.activities.ChatActivity;
+import com.evilgeniuses.hackathonyohack.fragments.participant.MyTeamFragment;
+import com.evilgeniuses.hackathonyohack.interfaces.SwitchFragment;
 import com.evilgeniuses.hackathonyohack.models.Team;
 import com.evilgeniuses.hackathonyohack.models.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
 import java.util.List;
 
-public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder>{
+public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> {
 
     private Context mContext;
     private List<Team> mTeams;
     private boolean ischat;
+    SwitchFragment switchFragment;
 
-    public TeamsAdapter(Context mContext, List<Team> teams, boolean ischat){
+    public TeamsAdapter(Context mContext, List<Team> teams, boolean ischat, SwitchFragment switchFragment) {
         this.mTeams = teams;
         this.mContext = mContext;
         this.ischat = ischat;
+        this.switchFragment = switchFragment;
     }
 
 
@@ -44,15 +54,15 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder>{
 
         final Team team = mTeams.get(position);
 
-        if (team.getTeamProfileImageURL().equals("STANDARD")){
+        if (team.getTeamProfileImageURL().equals("STANDARD")) {
             holder.imageViewProfileImage.setImageResource(R.mipmap.ic_launcher);
         } else {
             Glide.with(mContext).load(team.teamProfileImageURL).override(256, 256).into(holder.imageViewProfileImage);
         }
 
-            holder.textViewLastMessage.setVisibility(View.GONE);
+        holder.textViewLastMessage.setVisibility(View.GONE);
 
-            holder.imageViewStatus.setVisibility(View.GONE);
+        holder.imageViewStatus.setVisibility(View.GONE);
 
 
         holder.textViewName.setText(team.getTeamName());
@@ -63,6 +73,14 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder>{
 //                Intent intent = new Intent(mContext, ChatActivity.class); /активити для входа
 //                intent.putExtra("userID", team.getUserID());
 //                mContext.startActivity(intent);
+
+                FirebaseUser  firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                DatabaseReference databaseReferenceStatus;
+                databaseReferenceStatus = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("userTeam", team.getTeamName());
+                databaseReferenceStatus.updateChildren(hashMap);
+                switchFragment.setFragment(MyTeamFragment.newInstance(), "");
             }
         });
     }
@@ -72,7 +90,7 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder>{
         return mTeams.size();
     }
 
-    public  class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView textViewName;
         public TextView textViewLastMessage;

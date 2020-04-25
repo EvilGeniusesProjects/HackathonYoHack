@@ -79,11 +79,14 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
     FirebaseUser user;
     FirebaseDatabase database;
 
+    Context mContext;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_my_team, container,false);
 
+        mContext = getContext();
         imageViewProfileImage = rootView.findViewById(R.id.imageViewProfileImage);
 
         textViewSetProfileImage = rootView.findViewById(R.id.textViewSetProfileImage);
@@ -111,15 +114,16 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
         storageReference = storage.getReference();
 
 
-        myRef.addValueEventListener(new ValueEventListener() {
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User value = dataSnapshot.getValue(User.class);
-                Glide.with(getContext()).load(value.userProfileImageURL).override(512, 512).into(imageViewProfileImage);
+                Glide.with(mContext).load(value.userProfileImageURL).override(512, 512).into(imageViewProfileImage);/////////////////////////////////////////////////////////
                 editTextUsername.setText(value.userUsername);
                 editTextEmail.setText(value.userEmail);
                 editTextName.setText(value.userTeam);
-                datata(value.userTeam);
+                getTeamData(value.userTeam);
                 editTextLastname.setText(value.userLastname);
             }
 
@@ -130,25 +134,30 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
         });
 
 
-
-
-
-
-
         return rootView;
+
+    }
+
+    private void leaveTheTeam() {
+        FirebaseUser  firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference databaseReferenceStatus = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("userTeam", null);
+        databaseReferenceStatus.updateChildren(hashMap);
+        switchFragment.setFragment(TeamFragment.newInstance(), "");
     }
 
 
-    private void datata(String team){
+    private void getTeamData(String team){
         if (team != null) {
             teamRef = database.getReference("Teams/" + team);
 
-            teamRef.addValueEventListener(new ValueEventListener() {
+            teamRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Team value = dataSnapshot.getValue(Team.class);
 
-                    Glide.with(getContext()).load(value.teamProfileImageURL).override(512, 512).into(imageViewProfileImage);
+                    Glide.with(mContext).load(value.teamProfileImageURL).override(512, 512).into(imageViewProfileImage);///////////////////////////////////////
                     editTextUsername.setText(value.teamName);
                     editTextEmail.setText(value.teamIdea);
                     // editTextName.setText(value.userTeam);
@@ -172,10 +181,7 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.buttonLogout:
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+                leaveTheTeam();
                 break;
 
             case R.id.textViewSetProfileImage:

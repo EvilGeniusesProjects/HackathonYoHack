@@ -148,7 +148,7 @@
             android:textColor="@color/colorWhite" />
 
         <Button
-            android:id="@+id/buttonLogout"
+            android:id="@+id/buttonLogout5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -157,7 +157,7 @@
             android:textColor="@color/colorWhite" />
 
         <Button
-            android:id="@+id/buttonLogout2"
+            android:id="@+id/buttonLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/system_style_button_exit"
