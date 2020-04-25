@@ -23,6 +23,7 @@
                   android:theme="@style/AuthenticationTheme"/>
 
         <activity android:name=".activities.NavigationParticipantActivity"/>
+        <activity android:name=".activities.ChatActivity"/>
     </application>
 
 </manifest>
