@@ -11,6 +11,85 @@ public class User {
     public String userPassword;
     public String userStatus;
     public String userTeam;
+    public String userCategory;
+    public String userPhoneNumber;
+    public String userTelegram;
+    public String userInstagram;
+    public String userVK;
+
+    public String getUserAbilities() {
+        return userAbilities;
+    }
+
+    public void setUserAbilities(String userAbilities) {
+        this.userAbilities = userAbilities;
+    }
+
+    public String userAbilities;
+
+
+    public User(String userID, String userUsername, String userUsernameSearch, String userProfileImageURL, String userName, String userLastname, String userEmail, String userPassword, String userStatus, String userTeam, String userCategory, String userPhoneNumber, String userTelegram, String userInstagram, String userVK, boolean generalСhatActivity, String userAbilities) {
+        this.userID = userID;
+        this.userUsername = userUsername;
+        this.userUsernameSearch = userUsernameSearch;
+        this.userProfileImageURL = userProfileImageURL;
+        this.userName = userName;
+        this.userLastname = userLastname;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.userStatus = userStatus;
+        this.userTeam = userTeam;
+        this.userCategory = userCategory;
+        this.userPhoneNumber = userPhoneNumber;
+        this.userTelegram = userTelegram;
+        this.userInstagram = userInstagram;
+        this.userVK = userVK;
+        this.generalСhatActivity = generalСhatActivity;
+        this.userAbilities = userAbilities;
+    }
+
+    public String getUserCategory() {
+        return userCategory;
+    }
+
+    public void setUserCategory(String userCategory) {
+        this.userCategory = userCategory;
+    }
+
+    public String getUserPhoneNumber() {
+        return userPhoneNumber;
+    }
+
+    public void setUserPhoneNumber(String userPhoneNumber) {
+        this.userPhoneNumber = userPhoneNumber;
+    }
+
+    public String getUserTelegram() {
+        return userTelegram;
+    }
+
+    public void setUserTelegram(String userTelegram) {
+        this.userTelegram = userTelegram;
+    }
+
+    public String getUserInstagram() {
+        return userInstagram;
+    }
+
+    public void setUserInstagram(String userInstagram) {
+        this.userInstagram = userInstagram;
+    }
+
+    public String getUserVK() {
+        return userVK;
+    }
+
+    public void setUserVK(String userVK) {
+        this.userVK = userVK;
+    }
+
+
+
 
     public boolean isGeneralСhatActivity() {
         return generalСhatActivity;
@@ -25,20 +104,6 @@ public class User {
 
 
     public User() {
-    }
-
-    public User(String userID, String userUsername, String userUsernameSearch, String userProfileImageURL, String userName, String userLastname, String userEmail, String userPassword, String userStatus, String userTeam, boolean generalСhatActivity) {
-        this.userID = userID;
-        this.userUsername = userUsername;
-        this.userUsernameSearch = userUsernameSearch;
-        this.userProfileImageURL = userProfileImageURL;
-        this.userName = userName;
-        this.userLastname = userLastname;
-        this.userID = userEmail;
-        this.userID = userPassword;
-        this.userStatus = userStatus;
-        this.userTeam = userTeam;
-        this.generalСhatActivity = generalСhatActivity;
     }
 
     public String getUserID() {

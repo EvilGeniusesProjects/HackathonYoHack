@@ -124,7 +124,7 @@ public class MentorListFragment extends Fragment implements View.OnClickListener
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         User user = snapshot.getValue(User.class);
 
-                        if (!user.getUserID().equals(firebaseUser.getUid())) {
+                        if (user.getUserCategory() != null && user.getUserCategory().equals("Mentor")) {
                             mUsers.add(user);
                         }
 

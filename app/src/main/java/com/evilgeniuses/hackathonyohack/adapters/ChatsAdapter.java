@@ -79,7 +79,18 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder>{
         }
 
 
-        holder.textViewName.setText(user.getUserUsername());
+        holder.textViewName.setText(user.getUserName() + " " + user.getUserLastname());
+
+
+        int colorG = Integer.parseInt("80e27e", 16)+0xFF000000;
+        int colorW = Integer.parseInt("ffffff", 16)+0xFF000000;
+        if(user.isGeneralСhatActivity()) {
+            holder.textViewName.setTextColor(colorG);
+        }else{
+            holder.textViewName.setTextColor(colorW);
+        }
+
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

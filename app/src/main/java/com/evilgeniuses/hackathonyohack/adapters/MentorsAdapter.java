@@ -77,14 +77,19 @@ public class MentorsAdapter extends RecyclerView.Adapter<MentorsAdapter.ViewHold
         }
 
 
-        holder.textViewName.setText(user.getUserUsername());
+        holder.textViewName.setText(user.getUserName() + " " + user.getUserLastname());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 Intent intent = new Intent(mContext, ChatActivity.class);
                 intent.putExtra("userID", user.getUserID());
                 mContext.startActivity(intent);
+
+
+
             }
         });
     }

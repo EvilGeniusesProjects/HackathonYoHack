@@ -167,9 +167,9 @@ public class TeamsFragment extends Fragment implements View.OnClickListener {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Team user = snapshot.getValue(Team.class);
 
-//                        if (!user.getUserID().equals(firebaseUser.getUid())) {
+                        if (!user.getTeamName().equals("YoHack")) {
                             mTeams.add(user);
-//                        }
+                        }
 
                     }
 

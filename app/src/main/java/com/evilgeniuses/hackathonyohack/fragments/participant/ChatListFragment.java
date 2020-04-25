@@ -1,12 +1,14 @@
 package com.evilgeniuses.hackathonyohack.fragments.participant;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.evilgeniuses.hackathonyohack.R;
+import com.evilgeniuses.hackathonyohack.activities.GeneralСhatActivity;
 import com.evilgeniuses.hackathonyohack.adapters.ChatsAdapter;
 import com.evilgeniuses.hackathonyohack.interfaces.SwitchFragment;
 import com.evilgeniuses.hackathonyohack.models.Chatlist;
@@ -48,11 +51,15 @@ public class ChatListFragment extends Fragment implements View.OnClickListener {
 
     private List<Chatlist> usersList;
 
+    Context mContext;
+
+    Button buttonLoginToGeneralChat;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_chats_list, container, false);
-
+        mContext = getContext();
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -61,6 +68,10 @@ public class ChatListFragment extends Fragment implements View.OnClickListener {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         usersList = new ArrayList<>();
+
+
+        buttonLoginToGeneralChat = rootView.findViewById(R.id.buttonLoginToGeneralChat);
+        buttonLoginToGeneralChat.setOnClickListener(this);
 
         reference = FirebaseDatabase.getInstance().getReference("Chatlist").child(firebaseUser.getUid());
 
@@ -88,7 +99,9 @@ public class ChatListFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
+        Intent intent = new Intent(mContext, GeneralСhatActivity.class);
+        intent.putExtra("ChatName", "YoHack");
+        mContext.startActivity(intent);
     }
 
 
@@ -145,7 +158,7 @@ public class ChatListFragment extends Fragment implements View.OnClickListener {
                             user.userStatus = "online";
                             user.userName = team.teamName;
                             user.userUsername = team.teamName;
-                            user.userLastname = team.teamName;
+                            user.userLastname = "";
                             user.generalСhatActivity = true;
                             mUsers.add(user);
                         }

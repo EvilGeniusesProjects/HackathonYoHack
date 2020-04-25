@@ -273,3 +273,4 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     }
 }
 
+

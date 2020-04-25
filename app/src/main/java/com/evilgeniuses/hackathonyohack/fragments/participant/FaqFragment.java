@@ -1,10 +1,12 @@
 package com.evilgeniuses.hackathonyohack.fragments.participant;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.evilgeniuses.hackathonyohack.R;
 import com.evilgeniuses.hackathonyohack.activities.JarvisActivity;
 import com.evilgeniuses.hackathonyohack.adapters.ExpandableFaqListAdapter;
+import com.evilgeniuses.hackathonyohack.interfaces.SwitchFragment;
 import com.evilgeniuses.hackathonyohack.models.FaqQuestion;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -31,11 +34,23 @@ public class FaqFragment extends Fragment implements View.OnClickListener {
     private ChildEventListener childEventListener;
     private ExpandableFaqListAdapter expandableFaqListAdapter;
 
+    SwitchFragment switchFragment;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.fragment_faq, container, false);
         recyclerView = inflate.findViewById(R.id.recyclerView);
         inflate.findViewById(R.id.btnJarvis).setOnClickListener(this);
+
+        Button buttonOrgans = inflate.findViewById(R.id.buttonOrgans);
+        Button buttonMentors = inflate.findViewById(R.id.buttonMentors);
+        Button buttonVolunteers = inflate.findViewById(R.id.buttonVolunteers);
+
+        buttonOrgans.setOnClickListener(this);
+        buttonMentors.setOnClickListener(this);
+        buttonVolunteers.setOnClickListener(this);
+
         return inflate;
     }
 
@@ -87,7 +102,7 @@ public class FaqFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getContext(), JarvisActivity.class));
                 break;
             case R.id.buttonOrgans:
-
+                switchFragment.setFragment(MentorListFragment.newInstance(), "");
                 break;
             case R.id.buttonMentors:
 
@@ -105,4 +120,13 @@ public class FaqFragment extends Fragment implements View.OnClickListener {
         super.onPause();
         childEventListener = null;
     }
+
+    @Override
+    public void onAttach(@NonNull Context context){
+        super.onAttach(context);
+        if(context instanceof SwitchFragment){
+            switchFragment = (SwitchFragment) context;
+        }
+    }
+
 }

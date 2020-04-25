@@ -227,7 +227,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:background="@drawable/system_style_text"
                 android:text="@string/string_text_23"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />

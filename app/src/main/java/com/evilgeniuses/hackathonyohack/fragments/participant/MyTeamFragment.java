@@ -9,6 +9,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,8 +133,42 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
 
 
 
+        editTextTeamStatus.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                setTeamStatus(editTextTeamStatus.getText().toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
+        editTextIdea.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                setTeamIdea(editTextIdea.getText().toString());
 
 
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
 
 
         linearlayoutCheckpoint = rootView.findViewById(R.id.linearlayoutCheckpoint);
@@ -253,11 +289,20 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void setTeamStatus(String status){
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("teamStatus", status);
+        teamRef.updateChildren(hashMap);
+    }
 
+    private void setTeamIdea(String status){
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("teamIdea", status);
+        teamRef.updateChildren(hashMap);
+    }
 
     private void sendCheckpoint() {
         HashMap<String, Object> hashMap = new HashMap<>();
-
         hashMap.put("hackathonTasksYouWork", editTextTasksYouWork.getText().toString());
         hashMap.put("hackathonCurrentProgress", editTextCurrentProgress.getText().toString());
         hashMap.put("hackathonWhatAreYouGoingToDo", editTextWhatAreYouGoingToDo.getText().toString());
