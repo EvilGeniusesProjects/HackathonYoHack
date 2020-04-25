@@ -74,11 +74,14 @@ public class ParticipantProfileFragment extends Fragment implements View.OnClick
     StorageReference storageReference;
     FirebaseStorage storage;
     FirebaseUser user;
+    Context mContext;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_participant_profile, container,false);
+
+        mContext = getContext();
 
         imageViewProfileImage = rootView.findViewById(R.id.imageViewProfileImage);
 
@@ -111,7 +114,13 @@ public class ParticipantProfileFragment extends Fragment implements View.OnClick
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User value = dataSnapshot.getValue(User.class);
-                Glide.with(getContext()).load(value.userProfileImageURL).override(512, 512).into(imageViewProfileImage);
+
+                if(value.userProfileImageURL.equals("STANDARD")){
+                    imageViewProfileImage.setImageResource(R.mipmap.ic_launcher);
+                }else{
+                    Glide.with(mContext).load(value.userProfileImageURL).override(512, 512).into(imageViewProfileImage);
+                }
+
                 editTextUsername.setText(value.userUsername);
                 editTextEmail.setText(value.userEmail);
                 editTextName.setText(value.userName);

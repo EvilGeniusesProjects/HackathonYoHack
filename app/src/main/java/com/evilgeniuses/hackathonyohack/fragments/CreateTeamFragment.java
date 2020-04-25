@@ -25,11 +25,9 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.evilgeniuses.hackathonyohack.R;
-import com.evilgeniuses.hackathonyohack.activities.NavigationParticipantActivity;
-import com.evilgeniuses.hackathonyohack.fragments.participant.TeamFragment;
+import com.evilgeniuses.hackathonyohack.fragments.participant.TeamsFragment;
 import com.evilgeniuses.hackathonyohack.interfaces.SwitchFragment;
 import com.evilgeniuses.hackathonyohack.models.Team;
-import com.evilgeniuses.hackathonyohack.models.User;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -207,7 +205,7 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
 
     public void Login() {
         writeNewTeam();
-        switchFragment.setFragment(TeamFragment.newInstance(), "");
+        switchFragment.setFragment(TeamsFragment.newInstance(), "");
         Toast.makeText(getContext(), "Команда создана", Toast.LENGTH_SHORT).show();
     }
 

@@ -11,9 +11,8 @@ import android.view.MenuItem;
 import com.evilgeniuses.hackathonyohack.R;
 import com.evilgeniuses.hackathonyohack.fragments.participant.ChatListFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.MentorListFragment;
-import com.evilgeniuses.hackathonyohack.fragments.participant.MyTeamFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.ParticipantProfileFragment;
-import com.evilgeniuses.hackathonyohack.fragments.participant.TeamFragment;
+import com.evilgeniuses.hackathonyohack.fragments.participant.TeamsFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.FaqFragment;
 import com.evilgeniuses.hackathonyohack.interfaces.SwitchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -45,7 +44,7 @@ public class NavigationParticipantActivity extends AppCompatActivity implements 
                         setFragment(MentorListFragment.newInstance(), "");
                         break;
                     case R.id.tab_4:
-                        setFragment(TeamFragment.newInstance(), "");
+                        setFragment(TeamsFragment.newInstance(), "");
                         break;
                     case R.id.tab_5:
                         setFragment(ParticipantProfileFragment.newInstance(), "");
@@ -63,6 +62,7 @@ public class NavigationParticipantActivity extends AppCompatActivity implements 
             public void run() {
                 getSupportFragmentManager()
                         .beginTransaction()
+                        .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                         .replace(R.id.container, fragment)
                         .commit();
             }

@@ -25,7 +25,8 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.evilgeniuses.hackathonyohack.R;
-import com.evilgeniuses.hackathonyohack.activities.AuthenticationActivity;
+import com.evilgeniuses.hackathonyohack.activities.ChatActivity;
+import com.evilgeniuses.hackathonyohack.activities.GeneralСhatActivity;
 import com.evilgeniuses.hackathonyohack.interfaces.SwitchFragment;
 import com.evilgeniuses.hackathonyohack.models.Team;
 import com.evilgeniuses.hackathonyohack.models.User;
@@ -60,12 +61,14 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
 
     TextView textViewSetProfileImage;
 
-    EditText editTextUsername;
-    EditText editTextEmail;
-    EditText editTextName;
-    EditText editTextLastname;
+    EditText editTextTeamName;
+    EditText editTextTeamStatus;
+    EditText editTextIdea;
+    EditText editTextTeamPassword;
 
     Button buttonLogout;
+    Button buttonTeamList;
+    Button buttonTeamChat;
 
 
     DatabaseReference myRef;
@@ -91,15 +94,19 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
 
         textViewSetProfileImage = rootView.findViewById(R.id.textViewSetProfileImage);
 
-        editTextUsername = rootView.findViewById(R.id.editTextUsername);
-        editTextEmail = rootView.findViewById(R.id.editTextEmail);
-        editTextName = rootView.findViewById(R.id.editTextName);
-        editTextLastname = rootView.findViewById(R.id.editTextLastname);
+        editTextTeamName = rootView.findViewById(R.id.editTextTeamName);
+        editTextTeamStatus = rootView.findViewById(R.id.editTextTeamStatus);
+        editTextIdea = rootView.findViewById(R.id.editTextTeamIdea);
+        editTextTeamPassword = rootView.findViewById(R.id.editTextTeamPassword);
 
         buttonLogout = rootView.findViewById(R.id.buttonLogout);
+        buttonTeamList = rootView.findViewById(R.id.buttonTeamList);
+        buttonTeamChat = rootView.findViewById(R.id.buttonTeamChat);
 
         textViewSetProfileImage.setOnClickListener(this);
         buttonLogout.setOnClickListener(this);
+        buttonTeamList.setOnClickListener(this);
+        buttonTeamChat.setOnClickListener(this);
 
         database = FirebaseDatabase.getInstance();
 
@@ -119,12 +126,7 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User value = dataSnapshot.getValue(User.class);
-                Glide.with(mContext).load(value.userProfileImageURL).override(512, 512).into(imageViewProfileImage);/////////////////////////////////////////////////////////
-                editTextUsername.setText(value.userUsername);
-                editTextEmail.setText(value.userEmail);
-                editTextName.setText(value.userTeam);
                 getTeamData(value.userTeam);
-                editTextLastname.setText(value.userLastname);
             }
 
             @Override
@@ -144,7 +146,7 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("userTeam", null);
         databaseReferenceStatus.updateChildren(hashMap);
-        switchFragment.setFragment(TeamFragment.newInstance(), "");
+        switchFragment.setFragment(TeamsFragment.newInstance(), "");
     }
 
 
@@ -156,12 +158,11 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Team value = dataSnapshot.getValue(Team.class);
-
-                    Glide.with(mContext).load(value.teamProfileImageURL).override(512, 512).into(imageViewProfileImage);///////////////////////////////////////
-                    editTextUsername.setText(value.teamName);
-                    editTextEmail.setText(value.teamIdea);
-                    // editTextName.setText(value.userTeam);
-                    editTextLastname.setText(value.teamPassword);
+                    Glide.with(mContext).load(value.teamProfileImageURL).override(512, 512).into(imageViewProfileImage);
+                    editTextTeamName.setText(value.teamName);
+                    editTextTeamStatus.setText(value.teamStatus);
+                    editTextIdea.setText(value.teamIdea);
+                    editTextTeamPassword.setText(value.teamPassword);
                 }
 
                 @Override
@@ -170,7 +171,7 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
                 }
             });
         }else {
-            switchFragment.setFragment(TeamFragment.newInstance(), "");
+            switchFragment.setFragment(TeamsFragment.newInstance(), "");
         }
     }
 
@@ -180,9 +181,21 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.buttonTeamChat:
+                Intent intent = new Intent(mContext, GeneralСhatActivity.class);
+                intent.putExtra("ChatName", editTextTeamName.getText().toString());
+                mContext.startActivity(intent);
+
+                break;
             case R.id.buttonLogout:
                 leaveTheTeam();
                 break;
+
+            case R.id.buttonTeamList:
+                switchFragment.setFragment(MyTeamListFragment.newInstance(), "");
+                break;
+
+
 
             case R.id.textViewSetProfileImage:
                 SelectImage();
@@ -237,11 +250,9 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
                         Uri downloadUri = task.getResult();
                         String mUri = downloadUri.toString();
 
-                        user = FirebaseAuth.getInstance().getCurrentUser();
-                        myRef = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
                         HashMap<String, Object> map = new HashMap<>();
                         map.put("teamProfileImageURL", "" + mUri);
-                        myRef.updateChildren(map);
+                        teamRef.updateChildren(map);
 
                         pd.dismiss();
                     } else {
