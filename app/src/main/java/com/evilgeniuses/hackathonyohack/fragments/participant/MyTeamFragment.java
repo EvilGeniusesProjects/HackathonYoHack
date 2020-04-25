@@ -16,6 +16,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,7 +70,22 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
     Button buttonLogout;
     Button buttonTeamList;
     Button buttonTeamChat;
+    Button buttonCheckpoint;
+    Button buttonSendCheckpoint;
 
+
+    EditText editTextTasksYouWork;
+    EditText editTextCurrentProgress;
+    EditText editTextWhatAreYouGoingToDo;
+    EditText editTextWhatQuestionsDoYouHave;
+    EditText editTextWhatKindOfMentorsDoYouNeed;
+
+
+
+
+
+
+    LinearLayout linearlayoutCheckpoint;
 
     DatabaseReference myRef;
     DatabaseReference teamRef;
@@ -102,11 +118,31 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
         buttonLogout = rootView.findViewById(R.id.buttonLogout);
         buttonTeamList = rootView.findViewById(R.id.buttonTeamList);
         buttonTeamChat = rootView.findViewById(R.id.buttonTeamChat);
+        buttonCheckpoint = rootView.findViewById(R.id.buttonCheckpoint);
+        buttonSendCheckpoint = rootView.findViewById(R.id.buttonSendCheckpoint);
+
+
+
+        editTextTasksYouWork = rootView.findViewById(R.id.editTextTasksYouWork);
+        editTextCurrentProgress = rootView.findViewById(R.id.editTextCurrentProgress);
+        editTextWhatAreYouGoingToDo = rootView.findViewById(R.id.editTextWhatAreYouGoingToDo);
+        editTextWhatQuestionsDoYouHave = rootView.findViewById(R.id.editTextWhatQuestionsDoYouHave);
+        editTextWhatKindOfMentorsDoYouNeed = rootView.findViewById(R.id.editTextWhatKindOfMentorsDoYouNeed);
+
+
+
+
+
+
+
+        linearlayoutCheckpoint = rootView.findViewById(R.id.linearlayoutCheckpoint);
 
         textViewSetProfileImage.setOnClickListener(this);
         buttonLogout.setOnClickListener(this);
         buttonTeamList.setOnClickListener(this);
         buttonTeamChat.setOnClickListener(this);
+        buttonCheckpoint.setOnClickListener(this);
+        buttonSendCheckpoint.setOnClickListener(this);
 
         database = FirebaseDatabase.getInstance();
 
@@ -163,6 +199,13 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
                     editTextTeamStatus.setText(value.teamStatus);
                     editTextIdea.setText(value.teamIdea);
                     editTextTeamPassword.setText(value.teamPassword);
+
+
+                    editTextTasksYouWork.setText(value.hackathonTasksYouWork);
+                    editTextCurrentProgress.setText(value.hackathonCurrentProgress);
+                    editTextWhatAreYouGoingToDo.setText(value.hackathonWhatAreYouGoingToDo);
+                    editTextWhatQuestionsDoYouHave.setText(value.hackathonWhatQuestionsDoYouHave);
+                    editTextWhatKindOfMentorsDoYouNeed.setText(value.hackathonWhatKindOfMentorsDoYouNeed);
                 }
 
                 @Override
@@ -195,11 +238,46 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
                 switchFragment.setFragment(MyTeamListFragment.newInstance(), "");
                 break;
 
-
-
             case R.id.textViewSetProfileImage:
                 SelectImage();
                 break;
+
+            case R.id.buttonCheckpoint:
+                setlinearlayoutCheckpointVisibility();
+                break;
+
+            case R.id.buttonSendCheckpoint:
+                sendCheckpoint();
+                break;
+
+        }
+    }
+
+
+
+    private void sendCheckpoint() {
+        HashMap<String, Object> hashMap = new HashMap<>();
+
+        hashMap.put("hackathonTasksYouWork", editTextTasksYouWork.getText().toString());
+        hashMap.put("hackathonCurrentProgress", editTextCurrentProgress.getText().toString());
+        hashMap.put("hackathonWhatAreYouGoingToDo", editTextWhatAreYouGoingToDo.getText().toString());
+        hashMap.put("hackathonWhatQuestionsDoYouHave", editTextWhatQuestionsDoYouHave.getText().toString());
+        hashMap.put("hackathonWhatKindOfMentorsDoYouNeed", editTextWhatKindOfMentorsDoYouNeed.getText().toString());
+
+        teamRef.updateChildren(hashMap);
+
+        Toast.makeText(getContext(), "Данные чекпоинта успешно отправлены", Toast.LENGTH_SHORT).show();
+        setlinearlayoutCheckpointVisibility();
+    }
+
+
+    private void setlinearlayoutCheckpointVisibility(){
+        if(linearlayoutCheckpoint.getVisibility() == View.VISIBLE){
+            linearlayoutCheckpoint.setVisibility(View.GONE);
+            buttonLogout.setVisibility(View.VISIBLE);
+        }else{
+            linearlayoutCheckpoint.setVisibility(View.VISIBLE);
+            buttonLogout.setVisibility(View.GONE);
         }
     }
 

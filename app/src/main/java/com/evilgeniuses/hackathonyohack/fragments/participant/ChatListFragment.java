@@ -163,18 +163,6 @@ public class ChatListFragment extends Fragment implements View.OnClickListener {
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     public static ChatListFragment newInstance() {
         return new ChatListFragment();
     }
