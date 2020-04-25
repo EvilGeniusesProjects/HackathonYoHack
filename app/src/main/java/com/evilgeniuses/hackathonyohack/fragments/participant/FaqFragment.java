@@ -13,15 +13,17 @@ import com.evilgeniuses.hackathonyohack.activities.JarvisActivity;
 
 public class FaqFragment extends Fragment {
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.fragment_faq, container, false);
+
+
         inflate.findViewById(R.id.btnJarvis).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), JarvisActivity.class));
             }
         });
+
         return inflate;
 
     }

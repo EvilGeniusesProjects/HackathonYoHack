@@ -3,4 +3,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="string_text_23">16:00 Старт хакатона \n16:10 Презентация задач \n17:00 Выбор задачи \n17:30 Общение в чатах по задачам \n17:45 Заполнение формы чекпойнта \n18:00 Чекпойнт с менторами: получение идей решений \n20:00 Безалкогольный онлайн-бар</string>
+    <string name="string_text_24">10:00 Зарядка \n12:00 Вебинар от партнеров \n16:00 Чекпоинт \n21:00 Экватор \n21:55 Вечерняя планка \n22:00 Open Space</string>
+    <string name="string_text_25">11:00 Зарядка \n12:00 Чекпоинт \n14:00 Вебинар от партнеров \n19:00 Квиз</string>
+    <string name="string_text_26">10:00 Зарядка \n11:00 Чекпоинт \n15:00 Pre-Demo \n16:00 Demo 18:30 Финал \n19:00 AfterParty</string>
 </resources>
