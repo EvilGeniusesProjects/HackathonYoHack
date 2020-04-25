@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.view.MenuItem;
 
 import com.evilgeniuses.hackathonyohack.R;
+import com.evilgeniuses.hackathonyohack.fragments.participant.ChatListFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.MentorListFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.ParticipantProfileFragment;
 import com.evilgeniuses.hackathonyohack.interfaces.SwitchFragment;
@@ -20,7 +21,7 @@ public class NavigationParticipantActivity extends AppCompatActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        setFragment(HeroAttributeFragment.newInstance(), "");
+       setFragment(ChatListFragment.newInstance(), "");
     }
 
     @Override
@@ -32,7 +33,7 @@ public class NavigationParticipantActivity extends AppCompatActivity implements 
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.tab_1:
-//                        setFragment(HeroAttributeFragment.newInstance(), "");
+                        setFragment(ChatListFragment.newInstance(), "");
                         break;
                     case R.id.tab_2:
 //                        setFragment(HeroAbilityFragment.newInstance(), "");
