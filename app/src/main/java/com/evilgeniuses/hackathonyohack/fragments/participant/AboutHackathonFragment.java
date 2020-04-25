@@ -29,12 +29,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.joda.time.DateTime;
 
-import java.util.ArrayList;
-
 public class AboutHackathonFragment extends Fragment implements View.OnClickListener {
     SwitchFragment switchFragment;
 
-    final int[] belltime = {30600, 36300, 36900, 42600, 44400, 50100, 50700, 56400, 57600, 63300, 63900, 69600, 70200, 82800};
+    final int[] belltime = {30600, 36300, 36900, 42600, 44400, 50100, 50700, 56400, 57600, 63300, 63900, 69600, 70200, 86340};
 
     ImageView imageViewHackathonLogo;
     TextView textViewHackathonName;
