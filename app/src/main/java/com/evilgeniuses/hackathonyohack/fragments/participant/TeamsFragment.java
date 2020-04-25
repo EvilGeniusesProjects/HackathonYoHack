@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TeamFragment extends Fragment implements View.OnClickListener {
+public class TeamsFragment extends Fragment implements View.OnClickListener {
 
     SwitchFragment switchFragment;
 
@@ -106,7 +106,7 @@ public class TeamFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                searchUsers(charSequence.toString().toLowerCase());
+                searchUsers(charSequence.toString());
             }
 
             @Override
@@ -127,7 +127,7 @@ public class TeamFragment extends Fragment implements View.OnClickListener {
     private void searchUsers(String username) {
 
         final FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
-        Query query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("userUsernameSearch").startAt(username).endAt(username+"\uf8ff");
+        Query query = FirebaseDatabase.getInstance().getReference("Teams").orderByChild("teamName").startAt(username).endAt(username+"\uf8ff");
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -194,7 +194,7 @@ public class TeamFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public static TeamFragment newInstance() {
-        return new TeamFragment();
+    public static TeamsFragment newInstance() {
+        return new TeamsFragment();
     }
 }

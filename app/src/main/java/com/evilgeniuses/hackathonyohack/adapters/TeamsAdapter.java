@@ -60,7 +60,18 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
             Glide.with(mContext).load(team.teamProfileImageURL).override(256, 256).into(holder.imageViewProfileImage);
         }
 
-        holder.textViewLastMessage.setVisibility(View.GONE);
+
+        if(team.teamStatus != null){
+            holder.textViewLastMessage.setVisibility(View.VISIBLE);
+            holder.textViewLastMessage.setText(team.teamStatus);
+        }else{
+            holder.textViewLastMessage.setVisibility(View.GONE);
+        }
+
+
+
+
+
 
         holder.imageViewStatus.setVisibility(View.GONE);
 
