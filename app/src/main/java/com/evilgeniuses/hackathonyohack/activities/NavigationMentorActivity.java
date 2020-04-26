@@ -9,11 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.evilgeniuses.hackathonyohack.R;
-import com.evilgeniuses.hackathonyohack.fragments.participant.AboutHackathonFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.ChatListFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.MentorFaqFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.MentorParticipantProfileFragment;
-import com.evilgeniuses.hackathonyohack.fragments.participant.TeamsListFragment;
 import com.evilgeniuses.hackathonyohack.interfaces.SwitchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
