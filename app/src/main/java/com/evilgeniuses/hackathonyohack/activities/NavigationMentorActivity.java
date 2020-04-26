@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import com.evilgeniuses.hackathonyohack.R;
 import com.evilgeniuses.hackathonyohack.fragments.participant.AboutHackathonFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.ChatListFragment;
-import com.evilgeniuses.hackathonyohack.fragments.participant.FaqFragment;
+import com.evilgeniuses.hackathonyohack.fragments.participant.MentorFaqFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.ParticipantProfileFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.TeamsListFragment;
 import com.evilgeniuses.hackathonyohack.interfaces.SwitchFragment;
@@ -38,7 +38,7 @@ public class NavigationMentorActivity extends AppCompatActivity implements Switc
                         setFragment(AboutHackathonFragment.newInstance(), "");
                         break;
                     case R.id.tab_2:
-                        setFragment(FaqFragment.newInstance(), "");
+                        setFragment(MentorFaqFragment.newInstance(), "");
                         break;
                     case R.id.tab_3:
                         setFragment(ChatListFragment.newInstance(), "");
