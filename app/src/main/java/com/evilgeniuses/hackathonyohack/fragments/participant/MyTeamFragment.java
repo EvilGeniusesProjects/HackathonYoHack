@@ -149,6 +149,8 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
             }
         });
 
+
+
         editTextIdea.addTextChangedListener(new TextWatcher() {
 
             @Override

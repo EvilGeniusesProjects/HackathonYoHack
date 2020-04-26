@@ -4,36 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.AddFaqActivity"
-    android:background="#06060b">
+    android:background="@color/colorBackground"
+    tools:context=".activities.AddFaqActivity">
 
-    <TextView
-        android:id="@+id/textAddFaq"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Добавить FAQ"
-        android:textColor="@android:color/white"
-        android:textSize="32sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textStyle="bold"
-        />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/appBar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@color/colorBackground"
+        android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageViewStatus"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="8dp"
+            android:src="@mipmap/ic_launcher"
+            android:visibility="gone"
+            app:civ_border_color="#05a567"
+            app:civ_border_width="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageViewBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:padding="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/arrow_left" />
+
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Добавить FAQ"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/hintQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:textColorHint="#00bf8a"
         app:counterEnabled="false"
         app:hintEnabled="true"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAddFaq"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/appBar">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editQuestion"
@@ -56,15 +89,14 @@
         android:id="@+id/hintAnswer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:textColorHint="#00bf8a"
         app:counterEnabled="false"
         app:hintEnabled="true"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hintQuestion"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/hintQuestion">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editAnswer"
@@ -88,14 +120,14 @@
         android:id="@+id/hintTags"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:textColorHint="#00bf8a"
         app:counterEnabled="false"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
+        app:hintEnabled="true"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hintAnswer"
-        app:hintEnabled="true">
+        app:layout_constraintTop_toBottomOf="@+id/hintAnswer">
 
 
         <com.google.android.material.textfield.TextInputEditText
@@ -106,7 +138,7 @@
             android:background="@drawable/system_style_edit_profile"
             android:ems="10"
             android:enabled="true"
-            android:hint="Тэги"
+            android:hint="Теги"
             android:paddingLeft="12dp"
             android:paddingTop="8dp"
             android:paddingRight="12dp"
@@ -119,16 +151,15 @@
         android:id="@+id/buttonAdd"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="32dp"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="4dp"
         android:background="@drawable/system_style_button"
         android:text="Сохранить"
         android:textColor="@color/colorWhite"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hintTags"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/hintTags" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.evilgeniuses.hackathonyohack.R;
@@ -14,7 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class AddFaqActivity extends AppCompatActivity {
-
+    ImageView imageViewBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,13 @@ public class AddFaqActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(AddFaqActivity.this, "Нужно заполнить все поля!", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        findViewById(R.id.imageViewBack).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

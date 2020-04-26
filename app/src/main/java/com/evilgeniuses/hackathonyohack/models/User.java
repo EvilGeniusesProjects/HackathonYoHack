@@ -40,11 +40,12 @@ public class User {
         this.userStatus = userStatus;
         this.userTeam = userTeam;
         this.userCategory = userCategory;
+        this.generalСhatActivity = generalСhatActivity;
+
         this.userPhoneNumber = userPhoneNumber;
         this.userTelegram = userTelegram;
         this.userInstagram = userInstagram;
         this.userVK = userVK;
-        this.generalСhatActivity = generalСhatActivity;
         this.userAbilities = userAbilities;
     }
 
