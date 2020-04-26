@@ -28,7 +28,6 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.evilgeniuses.hackathonyohack.R;
-import com.evilgeniuses.hackathonyohack.activities.ChatActivity;
 import com.evilgeniuses.hackathonyohack.activities.GeneralСhatActivity;
 import com.evilgeniuses.hackathonyohack.interfaces.SwitchFragment;
 import com.evilgeniuses.hackathonyohack.models.Team;
@@ -218,7 +217,7 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("userTeam", null);
         databaseReferenceStatus.updateChildren(hashMap);
-        switchFragment.setFragment(TeamsFragment.newInstance(), "");
+        switchFragment.setFragment(TeamsListFragment.newInstance(), "");
     }
 
 
@@ -250,7 +249,7 @@ public class MyTeamFragment extends Fragment implements View.OnClickListener {
                 }
             });
         }else {
-            switchFragment.setFragment(TeamsFragment.newInstance(), "");
+            switchFragment.setFragment(TeamsListFragment.newInstance(), "");
         }
     }
 

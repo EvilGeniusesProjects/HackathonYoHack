@@ -31,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MentorListFragment extends Fragment implements View.OnClickListener {
+public class VolunteersListFragment extends Fragment implements View.OnClickListener {
 
     SwitchFragment switchFragment;
 
@@ -124,7 +124,7 @@ public class MentorListFragment extends Fragment implements View.OnClickListener
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         User user = snapshot.getValue(User.class);
 
-                        if (user.getUserCategory() != null && user.getUserCategory().equals("Ментор")) {
+                        if (user.getUserCategory() != null && user.getUserCategory().equals("Волонтер")) {
                             mUsers.add(user);
                         }
 
@@ -151,7 +151,7 @@ public class MentorListFragment extends Fragment implements View.OnClickListener
         }
     }
 
-    public static MentorListFragment newInstance() {
-        return new MentorListFragment();
+    public static VolunteersListFragment newInstance() {
+        return new VolunteersListFragment();
     }
 }

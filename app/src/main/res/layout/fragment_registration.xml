@@ -6,195 +6,225 @@
     android:layout_height="match_parent"
     android:background="#06060b">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/img_login" />
-
-            <TextView
-                android:id="@+id/textViewTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginBottom="24dp"
-                android:text="Добро пожаловать"
-                android:textColor="@color/colorWhite"
-                android:textSize="36sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/textViewTitle4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="60dp"
-                android:text="в простом мессенджере"
-                android:textColor="@color/colorWhite"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/textViewTitle"
-                app:layout_constraintStart_toStartOf="@+id/textViewTitle"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageViewProfileImage"
-                android:layout_width="144dp"
-                android:layout_height="144dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="64dp"
-                android:baselineAligned="true"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_launcher"
-                android:visibility="invisible"
-                app:civ_border_color="@color/colorWhite"
-                app:civ_border_width="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:hintEnabled="true">
+                android:layout_height="match_parent"
+                android:layout_weight="2">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextUsername"
+                <ImageView
+                    android:id="@+id/imageView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/system_style_edit"
-                    android:ems="10"
-                    android:hint="Имя пользователя"
-                    android:inputType="textPersonName"
-                    android:padding="12dp"
-                    android:textColor="@color/colorWhite" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@mipmap/img_login" />
 
-            <com.google.android.material.textfield.TextInputLayout
+                <TextView
+                    android:id="@+id/textViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:text="Добро пожаловать"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="36sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewTitle4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:text="в простом мессенджере"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewTitle"
+                    app:layout_constraintStart_toStartOf="@+id/textViewTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageViewProfileImage"
+                    android:layout_width="144dp"
+                    android:layout_height="144dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="64dp"
+                    android:baselineAligned="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_launcher"
+                    android:visibility="invisible"
+                    app:civ_border_color="@color/colorWhite"
+                    app:civ_border_width="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:hintEnabled="true">
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextName"
+                <Spinner
+                    android:id="@+id/spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
                     android:background="@drawable/system_style_edit"
-                    android:ems="10"
-                    android:hint="Имя"
-                    android:inputType="textPersonName"
-                    android:padding="12dp"
-                    android:textColor="@color/colorWhite" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:entries="@array/listСategories"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="10dp" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:hintEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextLastname"
+                <Spinner
+                    android:id="@+id/spinner2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
                     android:background="@drawable/system_style_edit"
-                    android:ems="10"
-                    android:hint="Фамлиия"
-                    android:inputType="textPersonName"
-                    android:padding="12dp"
-                    android:textColor="@color/colorWhite" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:entries="@array/listСategories"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="10dp" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:hintEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextEmail"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/system_style_edit"
-                    android:ems="10"
-                    android:hint="Почта"
-                    android:inputType="textEmailAddress"
-                    android:padding="12dp"
-                    android:textColor="@color/colorWhite" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginBottom="8dp"
+                    app:hintEnabled="true">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                app:hintEnabled="true"
-                app:passwordToggleEnabled="true">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextUsername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/system_style_edit"
+                        android:ems="10"
+                        android:hint="Имя пользователя"
+                        android:inputType="textPersonName"
+                        android:padding="12dp"
+                        android:textColor="@color/colorWhite" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextPassword"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/system_style_edit"
-                    android:ems="10"
-                    android:hint="Пароль"
-                    android:inputType="textPassword"
-                    android:padding="12dp"
+                    android:layout_marginBottom="8dp"
+                    app:hintEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/system_style_edit"
+                        android:ems="10"
+                        android:hint="Имя"
+                        android:inputType="textPersonName"
+                        android:padding="12dp"
+                        android:textColor="@color/colorWhite" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    app:hintEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextLastname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/system_style_edit"
+                        android:ems="10"
+                        android:hint="Фамлиия"
+                        android:inputType="textPersonName"
+                        android:padding="12dp"
+                        android:textColor="@color/colorWhite" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    app:hintEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/system_style_edit"
+                        android:ems="10"
+                        android:hint="Почта"
+                        android:inputType="textEmailAddress"
+                        android:padding="12dp"
+                        android:textColor="@color/colorWhite" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    app:hintEnabled="true"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/system_style_edit"
+                        android:ems="10"
+                        android:hint="Пароль"
+                        android:inputType="textPassword"
+                        android:padding="12dp"
+                        android:textColor="@color/colorWhite" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/textViewSetProfileImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginBottom="32dp"
+                    android:padding="8dp"
+                    android:text="Добавить изображение профиля"
+                    android:textColor="@color/colorGray"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/buttonSignUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="64dp"
+                    android:background="@drawable/system_style_button"
+                    android:text="Зарегистрироваться"
                     android:textColor="@color/colorWhite" />
+            </LinearLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/textViewSetProfileImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginBottom="32dp"
-                android:padding="8dp"
-                android:text="Добавить изображение профиля"
-                android:textColor="@color/colorGray"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/buttonSignUp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/system_style_button"
-                android:text="Зарегистрироваться"
-                android:textColor="@color/colorWhite" />
         </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

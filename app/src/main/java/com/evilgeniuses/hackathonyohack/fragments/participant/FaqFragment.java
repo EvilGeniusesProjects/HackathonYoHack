@@ -102,13 +102,13 @@ public class FaqFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getContext(), JarvisActivity.class));
                 break;
             case R.id.buttonOrgans:
-                switchFragment.setFragment(MentorListFragment.newInstance(), "");
+                switchFragment.setFragment(OrganizerListFragment.newInstance(), "");
                 break;
             case R.id.buttonMentors:
-
+                switchFragment.setFragment(MentorListFragment.newInstance(), "");
                 break;
             case R.id.buttonVolunteers:
-
+                switchFragment.setFragment(VolunteersListFragment.newInstance(), "");
                 break;
 
 

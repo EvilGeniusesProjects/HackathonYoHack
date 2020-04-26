@@ -14,9 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +63,9 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     EditText editTextEmail;
     EditText editTextPassword;
     Button buttonSignUp;
+    Spinner spinner;
+    Spinner spinner2;
+
 
     //Firebase
     private FirebaseAuth mAuth;
@@ -74,6 +80,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     String imageProfileRef = "STANDARD";
     private StorageTask uploadTask;
     Boolean imagePick = false;
+    String UserCategories;
 
     @Nullable
     @Override
@@ -88,6 +95,39 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         editTextEmail = rootView.findViewById(R.id.editTextEmail);
         editTextPassword = rootView.findViewById(R.id.editTextPassword);
         buttonSignUp = rootView.findViewById(R.id.buttonSignUp);
+
+        spinner = rootView.findViewById(R.id.spinner);
+        spinner2 = rootView.findViewById(R.id.spinner2);
+
+
+        final String[] items = {"Участник", "Волонтер", "Ментор", "Организатор"};
+        String[] itemsHac = {"YoHack", "SMZ Hack", "Memory hack"};
+
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.spinner_item, items);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent,
+                                       View itemSelected, int selectedItemPosition, long selectedId) {
+                UserCategories = items[selectedItemPosition];
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
+
+
+
+
+
+
+        ArrayAdapter adapter2 = new ArrayAdapter(getActivity(), R.layout.spinner_item, itemsHac);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner2.setAdapter(adapter2);
+
 
         textViewSetProfileImage.setOnClickListener(this);
         buttonSignUp.setOnClickListener(this);
@@ -171,6 +211,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         user.userUsernameSearch = String.valueOf(editTextUsername.getText()).toLowerCase();
         user.userEmail = String.valueOf(editTextEmail.getText());
         user.userName = String.valueOf(editTextName.getText());
+        user.userCategory = UserCategories;
+        user.userAbilities = "Не заполнено";
         user.userLastname = String.valueOf(editTextLastname.getText());
         //user.userPassword = String.valueOf(editTextPassword.getText());
         user.userStatus = "offline";

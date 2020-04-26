@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.evilgeniuses.hackathonyohack.R;
 import com.evilgeniuses.hackathonyohack.activities.ChatActivity;
+import com.evilgeniuses.hackathonyohack.activities.ProfileActivity;
 import com.evilgeniuses.hackathonyohack.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -59,12 +60,12 @@ public class MentorsAdapter extends RecyclerView.Adapter<MentorsAdapter.ViewHold
         }
 
 
-//        if (ischat){
-//            lastMessage(user.getUserID(), holder.textViewLastMessage, holder.textViewTime);
-//            holder.textViewLastMessage.setVisibility(View.VISIBLE);
-//        } else {
+        if (user.getUserCategory().equals("Ментор") && !user.getUserAbilities().equals("Не заполнено")){
+            holder.textViewLastMessage.setVisibility(View.VISIBLE);
+            holder.textViewLastMessage.setText(user.getUserAbilities());
+        } else {
             holder.textViewLastMessage.setVisibility(View.GONE);
-//        }
+        }
 
         if(ischat){
             if(user.getUserStatus().equals("online")){
@@ -84,7 +85,7 @@ public class MentorsAdapter extends RecyclerView.Adapter<MentorsAdapter.ViewHold
             public void onClick(View view) {
 
 
-                Intent intent = new Intent(mContext, ChatActivity.class);
+                Intent intent = new Intent(mContext, ProfileActivity.class);
                 intent.putExtra("userID", user.getUserID());
                 mContext.startActivity(intent);
 

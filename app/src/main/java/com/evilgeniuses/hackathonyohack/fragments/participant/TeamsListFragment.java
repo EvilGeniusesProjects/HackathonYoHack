@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -16,8 +17,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.evilgeniuses.hackathonyohack.R;
-import com.evilgeniuses.hackathonyohack.adapters.MentorsAdapter;
+import com.evilgeniuses.hackathonyohack.adapters.TeamsAdapter;
+import com.evilgeniuses.hackathonyohack.fragments.CreateTeamFragment;
 import com.evilgeniuses.hackathonyohack.interfaces.SwitchFragment;
+import com.evilgeniuses.hackathonyohack.models.Team;
 import com.evilgeniuses.hackathonyohack.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,27 +34,67 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MentorListFragment extends Fragment implements View.OnClickListener {
+
+public class TeamsListFragment extends Fragment implements View.OnClickListener {
 
     SwitchFragment switchFragment;
 
     EditText editTextSearch;
     private RecyclerView recyclerView;
 
-    private MentorsAdapter userAdapter;
-    private List<User> mUsers;
+    private TeamsAdapter chatsAdapter;
+    private List<Team> mTeams;
+
+    DatabaseReference myRef;
+    FirebaseDatabase database;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_mentors_list, container, false);
+
+        View rootView = inflater.inflate(R.layout.fragment_teams, container, false);
+
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Users/" + currentFirebaseUser.getUid());
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User value = dataSnapshot.getValue(User.class);
+                if(value.userTeam != null){
+                    switchFragment.setFragment(MyTeamFragment.newInstance(), "");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                //Log.w(TAG, "Не удалось прочитать значение", error.toException());
+            }
+        });
+
+
+
+
+
+
+
+
+
+        Button button = rootView.findViewById(R.id.buttonCreate);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchFragment.setFragment(CreateTeamFragment.newInstance(), "");
+            }
+        });
+
 
         editTextSearch = rootView.findViewById(R.id.editTextSearch);
         recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mUsers = new ArrayList<>();
+        mTeams = new ArrayList<>();
 
         readUsers();
 
@@ -63,7 +106,7 @@ public class MentorListFragment extends Fragment implements View.OnClickListener
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                searchUsers(charSequence.toString().toLowerCase());
+                searchUsers(charSequence.toString());
             }
 
             @Override
@@ -84,23 +127,23 @@ public class MentorListFragment extends Fragment implements View.OnClickListener
     private void searchUsers(String username) {
 
         final FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
-        Query query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("userUsernameSearch").startAt(username).endAt(username+"\uf8ff");
+        Query query = FirebaseDatabase.getInstance().getReference("Teams").orderByChild("teamName").startAt(username).endAt(username+"\uf8ff");
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mUsers.clear();
+                mTeams.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    User user = snapshot.getValue(User.class);
+                    Team team = snapshot.getValue(Team.class);
 
-                    assert user != null;
+                    assert team != null;
                     assert fuser != null;
-                    if (!user.getUserID().equals(fuser.getUid())){
-                        mUsers.add(user);
-                    }
+//                    if (!user.getUserID().equals(fuser.getUid())){
+                        mTeams.add(team);
+//                    }
                 }
-                userAdapter = new MentorsAdapter(getContext(), mUsers, false);
-                recyclerView.setAdapter(userAdapter);
+                chatsAdapter = new  TeamsAdapter(getContext(), mTeams, false, switchFragment);
+                recyclerView.setAdapter(chatsAdapter);
             }
 
             @Override
@@ -114,25 +157,25 @@ public class MentorListFragment extends Fragment implements View.OnClickListener
     private void readUsers() {
 
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Teams");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (editTextSearch.getText().toString().equals("")) {
-                    mUsers.clear();
+                    mTeams.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        User user = snapshot.getValue(User.class);
+                        Team user = snapshot.getValue(Team.class);
 
-                        if (user.getUserCategory() != null && user.getUserCategory().equals("Ментор")) {
-                            mUsers.add(user);
+                        if (!user.getTeamName().equals("YoHack")) {
+                            mTeams.add(user);
                         }
 
                     }
 
 
-                    userAdapter = new MentorsAdapter(getContext(), mUsers, false);
-                    recyclerView.setAdapter(userAdapter);
+                    chatsAdapter = new  TeamsAdapter(getContext(), mTeams, false, switchFragment);
+                    recyclerView.setAdapter(chatsAdapter);
                 }
             }
 
@@ -151,7 +194,7 @@ public class MentorListFragment extends Fragment implements View.OnClickListener
         }
     }
 
-    public static MentorListFragment newInstance() {
-        return new MentorListFragment();
+    public static TeamsListFragment newInstance() {
+        return new TeamsListFragment();
     }
 }

@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".activities.ProfileActivity"></activity>
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -19,18 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.AuthenticationActivity"
-                  android:theme="@style/AuthenticationTheme"/>
-
-        <activity android:name=".activities.NavigationParticipantActivity"/>
-        <activity android:name=".activities.ChatActivity"/>
-        <activity android:name=".activities.GeneralСhatActivity"/>
-
-
-        <activity android:name=".activities.JarvisActivity"/>
-
-
-
+        <activity
+            android:name=".activities.AuthenticationActivity"
+            android:theme="@style/AuthenticationTheme" />
+        <activity android:name=".activities.NavigationParticipantActivity" />
+        <activity android:name=".activities.ChatActivity" />
+        <activity android:name=".activities.GeneralСhatActivity" />
+        <activity android:name=".activities.JarvisActivity" />
     </application>
 
 </manifest>

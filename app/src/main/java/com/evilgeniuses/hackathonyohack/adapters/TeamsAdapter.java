@@ -1,10 +1,13 @@
 package com.evilgeniuses.hackathonyohack.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,7 +54,7 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         final Team team = mTeams.get(position);
 
@@ -85,16 +89,74 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
 //                intent.putExtra("userID", team.getUserID());
 //                mContext.startActivity(intent);
 
-                FirebaseUser  firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                DatabaseReference databaseReferenceStatus;
-                databaseReferenceStatus = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-                HashMap<String, Object> hashMap = new HashMap<>();
-                hashMap.put("userTeam", team.getTeamName());
-                databaseReferenceStatus.updateChildren(hashMap);
-                switchFragment.setFragment(MyTeamFragment.newInstance(), "");
+
+
+                setName(team.getTeamName());
+
+//                FirebaseUser  firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+//                DatabaseReference databaseReferenceStatus;
+//                databaseReferenceStatus = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+//                HashMap<String, Object> hashMap = new HashMap<>();
+//                hashMap.put("userTeam", team.getTeamName());
+//                databaseReferenceStatus.updateChildren(hashMap);
+//                switchFragment.setFragment(MyTeamFragment.newInstance(), "");
             }
         });
     }
+
+    public void setName(final String name) {
+        LayoutInflater li = LayoutInflater.from(mContext);
+        View promptsView = li.inflate(R.layout.dialog_password, null);
+        AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(mContext);
+        mDialogBuilder.setView(promptsView);
+
+
+
+        mDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                FirebaseUser  firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                                DatabaseReference databaseReferenceStatus;
+                                databaseReferenceStatus = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+                                HashMap<String, Object> hashMap = new HashMap<>();
+                                hashMap.put("userTeam", name);
+                                databaseReferenceStatus.updateChildren(hashMap);
+                                switchFragment.setFragment(MyTeamFragment.newInstance(), "");
+
+
+                            }
+                        })
+                .setNegativeButton("Отмена",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alertDialog = mDialogBuilder.create();
+        alertDialog.show();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public int getItemCount() {
