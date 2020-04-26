@@ -1,28 +1,28 @@
 package com.evilgeniuses.hackathonyohack.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.evilgeniuses.hackathonyohack.R;
 import com.evilgeniuses.hackathonyohack.fragments.participant.AboutHackathonFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.ChatListFragment;
+import com.evilgeniuses.hackathonyohack.fragments.participant.FaqFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.ParticipantProfileFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.TeamsListFragment;
-import com.evilgeniuses.hackathonyohack.fragments.participant.FaqFragment;
 import com.evilgeniuses.hackathonyohack.interfaces.SwitchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class NavigationParticipantActivity extends AppCompatActivity implements SwitchFragment {
+public class NavigationOrganizerActivity extends AppCompatActivity implements SwitchFragment {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navigation_participan);
+        setContentView(R.layout.activity_navigation_organizer);
         setFragment(AboutHackathonFragment.newInstance(), "");
     }
 

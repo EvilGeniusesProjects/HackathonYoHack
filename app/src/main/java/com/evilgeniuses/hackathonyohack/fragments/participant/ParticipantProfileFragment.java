@@ -177,7 +177,7 @@ public class ParticipantProfileFragment extends Fragment implements View.OnClick
 
     private void uploadImage() {
         final ProgressDialog pd = new ProgressDialog(getContext());
-        pd.setMessage("Uploading");
+        pd.setMessage("Загрузка");
         pd.show();
 
         if (filePath != null) {

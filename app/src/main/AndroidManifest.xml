@@ -23,6 +23,9 @@
             android:name=".activities.AuthenticationActivity"
             android:theme="@style/AuthenticationTheme" />
         <activity android:name=".activities.NavigationParticipantActivity" />
+        <activity android:name=".activities.NavigationOrganizerActivity" />
+        <activity android:name=".activities.NavigationMentorActivity" />
+        <activity android:name=".activities.NavigationVolunteerActivity" />
         <activity android:name=".activities.ChatActivity" />
         <activity android:name=".activities.GeneralСhatActivity" />
         <activity android:name=".activities.JarvisActivity" />

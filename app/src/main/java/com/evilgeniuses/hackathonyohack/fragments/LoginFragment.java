@@ -1,5 +1,6 @@
 package com.evilgeniuses.hackathonyohack.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,13 +18,23 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.evilgeniuses.hackathonyohack.R;
+import com.evilgeniuses.hackathonyohack.activities.NavigationMentorActivity;
+import com.evilgeniuses.hackathonyohack.activities.NavigationOrganizerActivity;
 import com.evilgeniuses.hackathonyohack.activities.NavigationParticipantActivity;
+import com.evilgeniuses.hackathonyohack.activities.NavigationVolunteerActivity;
+import com.evilgeniuses.hackathonyohack.databases.TinyDB;
 import com.evilgeniuses.hackathonyohack.interfaces.SwitchFragment;
+import com.evilgeniuses.hackathonyohack.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginFragment extends Fragment implements View.OnClickListener {
 
@@ -40,10 +51,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private FirebaseAuth mAuth;
     String AuthenticationID;
 
+    TinyDB tinydb;
+
+    Context mContext;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
+
+        mContext = getContext();
 
         editTextEmail = rootView.findViewById(R.id.editTextEmail);
         editTextPassword = rootView.findViewById(R.id.editTextPassword);
@@ -108,9 +125,75 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         SharedPreferences.Editor editor = sharedPreferencesID.edit();
         editor.putString("UserID", AuthenticationID).apply();
 
-        Intent intent = new Intent(getActivity(), NavigationParticipantActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+
+
+
+
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Users/" + AuthenticationID);
+
+        final ProgressDialog pd = new ProgressDialog(getContext());
+        pd.setMessage("Загрузка");
+        pd.show();
+
+
+        tinydb = new TinyDB(mContext);
+
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User value = dataSnapshot.getValue(User.class);
+
+                Intent intent = null;
+
+                String text = value.getUserCategory();
+                tinydb.putString("UserCategories", text);
+                Toast.makeText(getActivity(), "Text = " + text, Toast.LENGTH_SHORT).show();
+
+
+                switch (text){
+                    case "Организатор":
+                        intent = new Intent(getActivity(), NavigationOrganizerActivity.class);
+                        break;
+                    case "Ментор":
+                        intent = new Intent(getActivity(), NavigationMentorActivity.class);
+                        break;
+                    case "Волонтер":
+                        intent = new Intent(getActivity(), NavigationVolunteerActivity.class);
+                        break;
+                    default:
+                        intent = new Intent(getActivity(), NavigationParticipantActivity.class);
+                        break;
+                }
+                startActivity(intent);
+                getActivity().finish();
+                pd.dismiss();
+
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                //Log.w(TAG, "Не удалось прочитать значение", error.toException());
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
     }
 
     @Override

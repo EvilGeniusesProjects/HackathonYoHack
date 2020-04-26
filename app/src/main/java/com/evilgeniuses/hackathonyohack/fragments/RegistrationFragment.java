@@ -29,7 +29,11 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.evilgeniuses.hackathonyohack.R;
+import com.evilgeniuses.hackathonyohack.activities.NavigationMentorActivity;
+import com.evilgeniuses.hackathonyohack.activities.NavigationOrganizerActivity;
 import com.evilgeniuses.hackathonyohack.activities.NavigationParticipantActivity;
+import com.evilgeniuses.hackathonyohack.activities.NavigationVolunteerActivity;
+import com.evilgeniuses.hackathonyohack.databases.TinyDB;
 import com.evilgeniuses.hackathonyohack.interfaces.SwitchFragment;
 import com.evilgeniuses.hackathonyohack.models.User;
 import com.google.android.gms.tasks.Continuation;
@@ -82,10 +86,16 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     Boolean imagePick = false;
     String UserCategories;
 
+    TinyDB tinydb;
+
+    Context mContext;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_registration, container, false);
+
+        mContext = getContext();
 
         imageViewProfileImage = rootView.findViewById(R.id.imageViewProfileImage);
         textViewSetProfileImage = rootView.findViewById(R.id.textViewSetProfileImage);
@@ -99,6 +109,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         spinner = rootView.findViewById(R.id.spinner);
         spinner2 = rootView.findViewById(R.id.spinner2);
 
+        tinydb = new TinyDB(mContext);
 
         final String[] items = {"Участник", "Волонтер", "Ментор", "Организатор"};
         String[] itemsHac = {"YoHack", "SMZ Hack", "Memory hack"};
@@ -116,9 +127,6 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-
-
 
 
 
@@ -189,6 +197,15 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                     SharedPreferences sharedPreferencesID = getActivity().getSharedPreferences("UserID", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferencesID.edit();
                     editor.putString("UserID", authenticationID).apply();
+
+
+
+                    SharedPreferences sharedPreferencesUserCategories = getActivity().getSharedPreferences("UserCategories", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = sharedPreferencesUserCategories.edit();
+                    editor2.putString("UserCategories", UserCategories).apply();
+
+
+
 
                     if (imagePick) {
                         uploadImage();
@@ -280,7 +297,21 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
     public void Login() {
         writeNewUser();
-        Intent intent = new Intent(getActivity(), NavigationParticipantActivity.class);
+        Intent intent = null;
+        switch (UserCategories){
+            case "Организатор":
+                intent = new Intent(getActivity(), NavigationOrganizerActivity.class);
+                break;
+            case "Ментор":
+                intent = new Intent(getActivity(), NavigationMentorActivity.class);
+                break;
+            case "Волонтер":
+                intent = new Intent(getActivity(), NavigationVolunteerActivity.class);
+                break;
+            default:
+                intent = new Intent(getActivity(), NavigationParticipantActivity.class);
+                break;
+        }
         startActivity(intent);
         getActivity().finish();
     }
