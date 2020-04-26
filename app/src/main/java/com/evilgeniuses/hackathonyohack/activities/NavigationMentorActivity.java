@@ -48,7 +48,7 @@ public class NavigationMentorActivity extends AppCompatActivity implements Switc
     }
 
     @Override
-    public void setFragment(final Fragment fragment, String fragmentTitle) {
+    public void setFragment(final Fragment fragment, final String fragmentTitle) {
         new Handler().post(new Runnable() {
             @Override
             public void run() {
@@ -56,6 +56,7 @@ public class NavigationMentorActivity extends AppCompatActivity implements Switc
                         .beginTransaction()
                         .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                         .replace(R.id.container, fragment)
+                        .addToBackStack(fragmentTitle)
                         .commit();
             }
         });

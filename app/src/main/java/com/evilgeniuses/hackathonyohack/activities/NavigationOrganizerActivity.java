@@ -56,7 +56,7 @@ public class NavigationOrganizerActivity extends AppCompatActivity implements Sw
     }
 
     @Override
-    public void setFragment(final Fragment fragment, String fragmentTitle) {
+    public void setFragment(final Fragment fragment, final String fragmentTitle) {
         new Handler().post(new Runnable() {
             @Override
             public void run() {
@@ -64,6 +64,7 @@ public class NavigationOrganizerActivity extends AppCompatActivity implements Sw
                         .beginTransaction()
                         .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                         .replace(R.id.container, fragment)
+                        .addToBackStack(fragmentTitle)
                         .commit();
             }
         });

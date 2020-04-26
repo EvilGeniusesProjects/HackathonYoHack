@@ -47,10 +47,14 @@ public class MentorFaqFragment extends Fragment implements View.OnClickListener 
         Button buttonOrgans = inflate.findViewById(R.id.buttonOrgans);
         Button buttonMentors = inflate.findViewById(R.id.buttonMentors);
         Button buttonVolunteers = inflate.findViewById(R.id.buttonVolunteers);
+        Button buttonTeams = inflate.findViewById(R.id.buttonTeams);
+        Button buttonParticipant = inflate.findViewById(R.id.buttonParticipant);
 
         buttonOrgans.setOnClickListener(this);
         buttonMentors.setOnClickListener(this);
         buttonVolunteers.setOnClickListener(this);
+        buttonParticipant.setOnClickListener(this);
+        buttonTeams.setOnClickListener(this);
 
         return inflate;
     }
@@ -98,7 +102,7 @@ public class MentorFaqFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnAddQuestion:
                 startActivity(new Intent(getContext(), AddFaqActivity.class));
                 break;
@@ -109,6 +113,12 @@ public class MentorFaqFragment extends Fragment implements View.OnClickListener 
                 switchFragment.setFragment(MentorListFragment.newInstance(), "");
                 break;
             case R.id.buttonVolunteers:
+                switchFragment.setFragment(VolunteersListFragment.newInstance(), "");
+                break;
+            case R.id.buttonTeams:
+                switchFragment.setFragment(TeamsListFragment.newInstance(), "");
+                break;
+            case R.id.buttonParticipant:
                 switchFragment.setFragment(VolunteersListFragment.newInstance(), "");
                 break;
 
@@ -123,9 +133,9 @@ public class MentorFaqFragment extends Fragment implements View.OnClickListener 
     }
 
     @Override
-    public void onAttach(@NonNull Context context){
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if(context instanceof SwitchFragment){
+        if (context instanceof SwitchFragment) {
             switchFragment = (SwitchFragment) context;
         }
     }

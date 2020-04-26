@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground">
@@ -23,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Информация о"
+            android:text="Хакатон YoHack"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="32dp"
@@ -36,7 +35,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:background="@drawable/system_style_button"
-            android:text="Организаторах"
+            android:text="список организаторов"
             android:textColor="@color/colorWhite" />
 
         <Button
@@ -46,7 +45,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:background="@drawable/system_style_button"
-            android:text="Менторах"
+            android:text="список менторов"
             android:textColor="@color/colorWhite" />
 
         <Button
@@ -54,9 +53,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/system_style_button"
+            android:text="список волонтеров"
+            android:textColor="@color/colorWhite" />
+        <Button
+            android:id="@+id/buttonTeams"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/system_style_button"
+            android:text="список команд"
+            android:textColor="@color/colorWhite" />
+        <Button
+            android:id="@+id/buttonParticipant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:layout_marginBottom="32dp"
             android:background="@drawable/system_style_button"
-            android:text="Волонтерах"
+            android:text="список участников"
             android:textColor="@color/colorWhite" />
 
         <TextView
@@ -69,17 +86,7 @@
             android:textSize="32dp"
             android:textStyle="bold" />
 
-    </LinearLayout><![CDATA[
-
-
-
-
-
-    />
-
-
-
-    ]]>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
