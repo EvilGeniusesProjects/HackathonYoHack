@@ -12,7 +12,7 @@ import com.evilgeniuses.hackathonyohack.R;
 import com.evilgeniuses.hackathonyohack.fragments.participant.AboutHackathonFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.ChatListFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.MentorFaqFragment;
-import com.evilgeniuses.hackathonyohack.fragments.participant.ParticipantProfileFragment;
+import com.evilgeniuses.hackathonyohack.fragments.participant.MentorParticipantProfileFragment;
 import com.evilgeniuses.hackathonyohack.fragments.participant.TeamsListFragment;
 import com.evilgeniuses.hackathonyohack.interfaces.SwitchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -47,7 +47,7 @@ public class NavigationMentorActivity extends AppCompatActivity implements Switc
                         setFragment(TeamsListFragment.newInstance(), "");
                         break;
                     case R.id.tab_5:
-                        setFragment(ParticipantProfileFragment.newInstance(), "");
+                        setFragment(MentorParticipantProfileFragment.newInstance(), "");
                         break;
                 }
                 return true;
