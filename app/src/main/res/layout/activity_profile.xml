@@ -125,12 +125,109 @@
                 android:textColorHint="#00bf8a" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="#00bf8a"
+            app:counterEnabled="false"
+            app:hintEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/system_style_edit_profile"
+                android:ems="10"
+                android:enabled="false"
+                android:hint="Телефон"
+                android:paddingLeft="12dp"
+                android:paddingTop="8dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="12dp"
+                android:textColor="#5b5b5b"
+                android:textColorHint="#00bf8a" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="#00bf8a"
+                app:counterEnabled="false"
+                app:hintEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextVk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/system_style_edit_profile"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:hint="Вконтакте"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="12dp"
+                    android:paddingBottom="12dp"
+                    android:textColor="#5b5b5b"
+                    android:textColorHint="#00bf8a" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="#00bf8a"
+                app:counterEnabled="false"
+                app:hintEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTelegram"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/system_style_edit_profile"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:hint="Телеграм"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="12dp"
+                    android:paddingBottom="12dp"
+                    android:textColor="#5b5b5b"
+                    android:textColorHint="#00bf8a" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="#00bf8a"
+                app:counterEnabled="false"
+                app:hintEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextInst"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/system_style_edit_profile"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:hint="Инстраграм"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="12dp"
+                    android:paddingBottom="12dp"
+                    android:textColor="#5b5b5b"
+                    android:textColorHint="#00bf8a" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
         <Button
             android:id="@+id/buttonSend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/system_style_button_chat"
             android:text="Написать"
+            android:layout_marginTop="10dp"
             android:textColor="@color/colorWhite" />
 
     </LinearLayout>

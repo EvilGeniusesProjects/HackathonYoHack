@@ -39,10 +39,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     EditText editTextEmail;
     EditText editTextAbilities;
+    EditText editTextPhone;
+    EditText editTextVk;
+    EditText editTextTelegram;
+    EditText editTextInst;
 
     Button buttonSend;
 
     Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +64,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         imageViewProfileImage = findViewById(R.id.imageViewProfileImage);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextAbilities = findViewById(R.id.editTextAbilities);
+        editTextPhone = findViewById(R.id.editTextPhone);
+        editTextTelegram = findViewById(R.id.editTextTelegram);
+        editTextVk = findViewById(R.id.editTextVk);
+        editTextInst = findViewById(R.id.editTextInst);
 
         buttonSend = findViewById(R.id.buttonSend);
 
@@ -77,16 +86,37 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User value = dataSnapshot.getValue(User.class);
 
-                if(value.userProfileImageURL.equals("STANDARD")){
+                if (value.userProfileImageURL.equals("STANDARD")) {
                     imageViewProfileImage.setImageResource(R.mipmap.ic_launcher);
-                }else{
+                } else {
                     Glide.with(mContext).load(value.userProfileImageURL).override(512, 512).into(imageViewProfileImage);
                 }
                 textViewName.setText(value.getUserName() + " " + value.getUserLastname());
 
                 editTextEmail.setText(value.userEmail);
-                if(!value.getUserAbilities().equals(null)) {
+                if (value.getUserAbilities() != null) {
                     editTextAbilities.setText((value.getUserAbilities()));
+                }
+                if (value.getUserPhoneNumber() != null) {
+                    editTextPhone.setText((value.getUserPhoneNumber()));
+                } else {
+                    editTextPhone.setText("Не заполнено");
+                }
+                if (value.getUserVK() != null) {
+                    editTextVk.setText((value.getUserVK()));
+                }else {
+                    editTextVk.setText("Не заполнено");
+                }
+                if (value.getUserTelegram()!= null) {
+                    editTextTelegram.setText((value.getUserTelegram()));
+                } else{
+                    editTextTelegram.setText("Не заполнено");
+
+                }
+                if (value.getUserInstagram()!= null) {
+                    editTextInst.setText((value.getUserInstagram()));
+                } else {
+                    editTextInst.setText("Не заполнено");
                 }
             }
 
@@ -106,7 +136,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
 
         switch (v.getId()) {
-            case R.id. buttonSend:
+            case R.id.buttonSend:
 
                 Intent intent = new Intent(this, ChatActivity.class);
                 intent.putExtra("userID", userID);
