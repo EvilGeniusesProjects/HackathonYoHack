@@ -150,7 +150,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
                 String text = value.getUserCategory();
                 tinydb.putString("UserCategories", text);
-                Toast.makeText(getActivity(), "Text = " + text, Toast.LENGTH_SHORT).show();
 
 
                 switch (text){
@@ -170,12 +169,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 getActivity().finish();
                 pd.dismiss();
-
-
-
-
-
-
             }
 
             @Override

@@ -25,9 +25,6 @@ public class SplashActivity extends AppCompatActivity {
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             String savedText = tinyDB.getString("UserCategories");
-
-
-            Toast.makeText(this, "Text = " + savedText, Toast.LENGTH_SHORT).show();
             switch (savedText){
                 case "Организатор":
                     intent = new Intent(this, NavigationOrganizerActivity.class);
