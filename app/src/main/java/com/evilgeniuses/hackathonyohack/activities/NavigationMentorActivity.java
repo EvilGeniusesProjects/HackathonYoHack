@@ -23,7 +23,7 @@ public class NavigationMentorActivity extends AppCompatActivity implements Switc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_mentor);
-        setFragment(AboutHackathonFragment.newInstance(), "");
+        setFragment(MentorFaqFragment.newInstance(), "");
     }
 
     @Override
@@ -34,17 +34,11 @@ public class NavigationMentorActivity extends AppCompatActivity implements Switc
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.tab_1:
-                        setFragment(AboutHackathonFragment.newInstance(), "");
-                        break;
                     case R.id.tab_2:
                         setFragment(MentorFaqFragment.newInstance(), "");
                         break;
                     case R.id.tab_3:
                         setFragment(ChatListFragment.newInstance(), "");
-                        break;
-                    case R.id.tab_4:
-                        setFragment(TeamsListFragment.newInstance(), "");
                         break;
                     case R.id.tab_5:
                         setFragment(MentorParticipantProfileFragment.newInstance(), "");
